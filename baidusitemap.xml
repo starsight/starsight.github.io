@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+    
+    
+    
+  <url>
+    <loc>http://wenjiehe.com/2016/10/15/2016-10-15-xingji-2/</loc>
+    <lastmod>2017-01-29T15:48:38.647Z</lastmod>
+    <data>
+        <display>
+        <title>行迹V0.6版本概述总结</title>
+        <pubTime>2016-10-15T02:42:02.000Z</pubTime>
+        
+        <tag>行迹</tag>
+         
+         
+           
+             
+              <breadCrumb title="2016-10" url="http://wenjiehe.com/categories/2016-10/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2016/04/20/2016-04-20-raspberry-dilatation-and-samba/</loc>
+    <lastmod>2017-01-29T15:48:13.687Z</lastmod>
+    <data>
+        <display>
+        <title>Raspberry Pi 3 开箱+扩容+samba</title>
+        <pubTime>2016-04-20T12:33:34.000Z</pubTime>
+        
+        <tag>树莓派</tag>
+         
+        <tag>扩容</tag>
+         
+        <tag>samba</tag>
+         
+         
+           
+             
+              <breadCrumb title="2016-04" url="http://wenjiehe.com/categories/2016-04/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2016/04/21/2016-04-21-raspberry-wifi-problems/</loc>
+    <lastmod>2017-01-29T15:48:06.439Z</lastmod>
+    <data>
+        <display>
+        <title>Raspberry Pi 3 wifi问题</title>
+        <pubTime>2016-04-21T11:59:09.000Z</pubTime>
+        
+        <tag>树莓派</tag>
+         
+        <tag>wifi</tag>
+         
+        <tag>树莓派3</tag>
+         
+         
+           
+             
+              <breadCrumb title="2016-04" url="http://wenjiehe.com/categories/2016-04/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2016/04/22/2016-04-22-raspberry-baiduyun/</loc>
+    <lastmod>2017-01-29T15:47:56.906Z</lastmod>
+    <data>
+        <display>
+        <title>Raspberry Pi 3 中文显示及输入+百度云传输</title>
+        <pubTime>2016-04-22T13:07:14.000Z</pubTime>
+        
+        <tag>树莓派</tag>
+         
+        <tag>中文显示</tag>
+         
+        <tag>中文输入</tag>
+         
+        <tag>百度云</tag>
+         
+         
+           
+             
+              <breadCrumb title="2016-04" url="http://wenjiehe.com/categories/2016-04/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2016/04/23/2016-04-23-raspberry-dnsmasq/</loc>
+    <lastmod>2017-01-29T15:47:50.792Z</lastmod>
+    <data>
+        <display>
+        <title>Raspberry Pi 3 搭建本地DNS服务器</title>
+        <pubTime>2016-04-23T13:39:04.000Z</pubTime>
+        
+        <tag>树莓派</tag>
+         
+        <tag>dnsmasq</tag>
+         
+        <tag>dns</tag>
+         
+        <tag>局域网缓存</tag>
+         
+         
+           
+             
+              <breadCrumb title="2016-04" url="http://wenjiehe.com/categories/2016-04/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2016/04/24/2016-04-24-raspberry-weibo/</loc>
+    <lastmod>2017-01-29T15:47:45.531Z</lastmod>
+    <data>
+        <display>
+        <title>Raspberry Pi 3 发微博</title>
+        <pubTime>2016-04-24T13:57:51.000Z</pubTime>
+        
+        <tag>树莓派</tag>
+         
+        <tag>weibo</tag>
+         
+        <tag>微博</tag>
+         
+         
+           
+             
+              <breadCrumb title="2016-04" url="http://wenjiehe.com/categories/2016-04/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2016/04/28/2016-04-28-raspberry-ngrok/</loc>
+    <lastmod>2017-01-29T15:47:39.952Z</lastmod>
+    <data>
+        <display>
+        <title>Raspberry Pi 3 ngrok内网穿透</title>
+        <pubTime>2016-04-28T05:48:51.000Z</pubTime>
+        
+        <tag>树莓派</tag>
+         
+        <tag>ngrok</tag>
+         
+        <tag>内网穿透</tag>
+         
+        <tag>内网</tag>
+         
+         
+           
+             
+              <breadCrumb title="2016-04" url="http://wenjiehe.com/categories/2016-04/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2016/04/29/2016-04-29-raspberry-owncloud/</loc>
+    <lastmod>2017-01-29T15:47:34.597Z</lastmod>
+    <data>
+        <display>
+        <title>Raspberry Pi 3 使用owncloud云服务</title>
+        <pubTime>2016-04-29T02:48:51.000Z</pubTime>
+        
+        <tag>树莓派</tag>
+         
+        <tag>云服务</tag>
+         
+        <tag>owncloud</tag>
+         
+         
+           
+             
+              <breadCrumb title="2016-04" url="http://wenjiehe.com/categories/2016-04/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2016/04/30/2016-04-30-raspberry-opencv-install/</loc>
+    <lastmod>2017-01-29T15:47:28.495Z</lastmod>
+    <data>
+        <display>
+        <title>Raspberry Pi 3 编译opencv</title>
+        <pubTime>2016-04-30T02:18:51.000Z</pubTime>
+        
+        <tag>树莓派</tag>
+         
+        <tag>编译opencv</tag>
+         
+         
+           
+             
+              <breadCrumb title="2016-04" url="http://wenjiehe.com/categories/2016-04/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2016/08/18/2016-08-18-xingji-1/</loc>
+    <lastmod>2017-01-29T15:47:16.716Z</lastmod>
+    <data>
+        <display>
+        <title>行迹开篇</title>
+        <pubTime>2016-08-18T14:15:36.000Z</pubTime>
+        
+        <tag>行迹</tag>
+         
+         
+           
+             
+              <breadCrumb title="2016-08" url="http://wenjiehe.com/categories/2016-08/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2016/05/01/2016-05-01-raspberry-identify-face/</loc>
+    <lastmod>2017-01-29T15:45:13.221Z</lastmod>
+    <data>
+        <display>
+        <title>Raspberry Pi 3 opencv+python的人脸识别</title>
+        <pubTime>2016-05-01T08:44:58.000Z</pubTime>
+        
+        <tag>树莓派</tag>
+         
+        <tag>opencv</tag>
+         
+        <tag>python</tag>
+         
+        <tag>人脸识别</tag>
+         
+         
+           
+             
+              <breadCrumb title="2016-05" url="http://wenjiehe.com/categories/2016-05/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2015/01/09/2015-01-09-everyone-has-different-aims/</loc>
+    <lastmod>2016-04-30T11:36:08.938Z</lastmod>
+    <data>
+        <display>
+        <title>人各有志，从来就不是你堕落的理由</title>
+        <pubTime>2015-01-09T14:57:29.000Z</pubTime>
+        
+        <tag>思绪</tag>
+         
+         
+           
+             
+              <breadCrumb title="2015-01" url="http://wenjiehe.com/categories/2015-01/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2015/01/23/2015-01-23-end-and-go-on/</loc>
+    <lastmod>2016-04-30T11:36:04.399Z</lastmod>
+    <data>
+        <display>
+        <title>大三的结束与开始</title>
+        <pubTime>2015-01-23T05:58:12.000Z</pubTime>
+        
+        <tag>思绪</tag>
+         
+         
+           
+             
+              <breadCrumb title="2015-01" url="http://wenjiehe.com/categories/2015-01/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2015/02/08/2015-02-08-thinking-on-the-way/</loc>
+    <lastmod>2016-04-30T11:36:00.709Z</lastmod>
+    <data>
+        <display>
+        <title>走在归路上的一点思考</title>
+        <pubTime>2015-02-08T13:16:24.000Z</pubTime>
+        
+        <tag>思绪</tag>
+         
+         
+           
+             
+              <breadCrumb title="2015-02" url="http://wenjiehe.com/categories/2015-02/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2015/03/28/2015-03-28-someone-in-university/</loc>
+    <lastmod>2016-04-30T11:35:57.453Z</lastmod>
+    <data>
+        <display>
+        <title>大学中的一些学生</title>
+        <pubTime>2015-03-28T13:57:46.000Z</pubTime>
+        
+        <tag>思绪</tag>
+         
+         
+           
+             
+              <breadCrumb title="2015-03" url="http://wenjiehe.com/categories/2015-03/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2015/04/30/2015-04-30-i-am-always-busy/</loc>
+    <lastmod>2016-04-30T11:35:53.758Z</lastmod>
+    <data>
+        <display>
+        <title>大学，为什么我一直这么忙？</title>
+        <pubTime>2015-04-30T05:13:20.000Z</pubTime>
+        
+        <tag>思绪</tag>
+         
+         
+           
+             
+              <breadCrumb title="2015-04" url="http://wenjiehe.com/categories/2015-04/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2015/07/27/2015-07-27-july-time/</loc>
+    <lastmod>2016-04-30T11:35:50.302Z</lastmod>
+    <data>
+        <display>
+        <title>七月的时光</title>
+        <pubTime>2015-07-27T02:50:20.000Z</pubTime>
+        
+        <tag>思绪</tag>
+         
+         
+           
+             
+              <breadCrumb title="2015-07" url="http://wenjiehe.com/categories/2015-07/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2015/11/22/2015-11-22-die-in-plan/</loc>
+    <lastmod>2016-04-30T11:35:46.574Z</lastmod>
+    <data>
+        <display>
+        <title>计划下的牺牲</title>
+        <pubTime>2015-11-22T14:58:50.000Z</pubTime>
+        
+        <tag>思绪</tag>
+         
+         
+           
+             
+              <breadCrumb title="2015-11" url="http://wenjiehe.com/categories/2015-11/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2015/11/27/2015-11-27-wechat-article-1/</loc>
+    <lastmod>2016-04-30T11:35:43.494Z</lastmod>
+    <data>
+        <display>
+        <title>趁年轻，做点自己不喜欢的事</title>
+        <pubTime>2015-11-27T10:47:16.000Z</pubTime>
+        
+        <tag>思绪</tag>
+         
+         
+           
+             
+              <breadCrumb title="2015-11" url="http://wenjiehe.com/categories/2015-11/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2015/01/04/2015-01-05-do-quickly/</loc>
+    <lastmod>2016-04-30T11:35:39.816Z</lastmod>
+    <data>
+        <display>
+        <title>快去做吧</title>
+        <pubTime>2015-01-04T06:22:25.000Z</pubTime>
+        
+        <tag>思绪</tag>
+         
+         
+           
+             
+              <breadCrumb title="2015-01" url="http://wenjiehe.com/categories/2015-01/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2015/01/03/2015-01-05-if-you-like/</loc>
+    <lastmod>2016-04-30T11:35:11.460Z</lastmod>
+    <data>
+        <display>
+        <title>如果你想去做的话</title>
+        <pubTime>2015-01-03T10:28:45.000Z</pubTime>
+        
+        <tag>思绪</tag>
+         
+         
+           
+             
+              <breadCrumb title="2015-01" url="http://wenjiehe.com/categories/2015-01/"/>
+          
+        </display>
+    </data>
+    </url>
+
+</urlset>
