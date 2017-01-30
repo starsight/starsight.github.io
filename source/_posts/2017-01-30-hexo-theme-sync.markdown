@@ -8,7 +8,7 @@ tags: [Hexo]
 ---
 这篇文章讲讲在我的Octopress博客更换成基于Hexo的博客后，为了在多台电脑能够同步中遇到的问题。<!--more-->
 
-我基于[这个回答](https://www.zhihu.com/question/21193762)来解决这个问题的。问题主要出在theme上，由于NexT主题引自第三方，所以这就牵扯到git中的submoudle问题了。想偷懒把不引入，但是好像不行，于是按以下思路进行解决：clone NexT官方的github到自己的仓库，然后引入子模块，我这边不知道为什么有“[already exists in the index](https://my.oschina.net/jerikc/blog/513039)”的问题，执行如下命令：
+我基于[这个回答](https://www.zhihu.com/question/21193762)来解决这个问题的。问题主要出在theme上，由于NexT主题引自第三方，所以这就牵扯到git中的submodule问题了。想偷懒把不引入，但是好像不行，于是按以下思路进行解决：clone NexT官方的github到自己的仓库，然后引入子模块，我这边不知道为什么有“[already exists in the index](https://my.oschina.net/jerikc/blog/513039)”的问题，执行如下命令：
 ```
 git rm -r --cached theme/next
 ```
@@ -19,7 +19,7 @@ git submodule add git@github.com:starsight/hexo-theme-next.git themes/next
 ```
 
 然后再把自己的配置覆盖fork下来的NexT仓库。
-我们先要push submoudle，在theme/next目录下依次执行：
+我们先要push submodule，在theme/next目录下依次执行：
 ```
 git add .
 git commit -m "next settings in fork next rep"
