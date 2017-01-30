@@ -9,25 +9,25 @@ tags: [Hexo]
 这篇文章讲讲在我的Octopress博客更换成基于Hexo的博客后，为了在多台电脑能够同步中遇到的问题。<!--more-->
 
 我基于[这个回答](https://www.zhihu.com/question/21193762)来解决这个问题的。问题主要出在theme上，由于NexT主题引自第三方，所以这就牵扯到git中的submodule问题了。想偷懒把不引入，但是好像不行，于是按以下思路进行解决：clone NexT官方的github到自己的仓库，然后引入子模块，我这边不知道为什么有“[already exists in the index](https://my.oschina.net/jerikc/blog/513039)”的问题，执行如下命令：
-```
+```shell
 git rm -r --cached theme/next
 ```
 
 由于我是已经配置好了自己的NexT，为了不让它遗失，我先把它剪贴出来，再添加submodlue：
-```
+```shell
 git submodule add git@github.com:starsight/hexo-theme-next.git themes/next
 ```
 
 然后再把自己的配置覆盖fork下来的NexT仓库。
 我们先要push submodule，在theme/next目录下依次执行：
-```
+```shell
 git add .
 git commit -m "next settings in fork next rep"
 git push origin master //这是提交到fork后主题的仓库
 ```
 
 这样，是提交到starsight/hexo-theme-next仓库。然后我们再更新[starsight.github.io](https://github.com/starsight/starsight.github.io)仓库：
-```
+```shell
 cd ../../ //切到仓库的根目录
 git add .
 git commit -m "update next settings in blog sources branch"
@@ -35,27 +35,27 @@ git push origin hexo //注意hexo分支
 ```
 
 以后写文章，只需要在根目录下（hexo分支）进行git add,commit,push(hexo)操作，例如：
-```
+```shell
 git add .
 git commit -m"new post hexo theme sync solution"
 git push origin hexo
 ```
 
 然后再更新master分支，即对外显示的html部分：
-```
+```shell
 //hexo s -g
 hexo d -g  // g为generate 生成，s为本地预览，d为deploy 部署到远程分支
 ```
 
-
-```
+接下来为比较完整的在另一台电脑上的操作过程：
+```shell
 git clone --recursive git@github.com:starsight/starsight.github.io.git //clone 主仓库
 cd starsight.github.io/
 git checkout hexo //切换到hexo，以后基本都是基于此分支，master分支用hexo -d
 cd themes/next/
 git submodule init
 git submodule update //获取我的NexT主题的配置
-//接下来的任务主要是配置环境，nodejs安装，hexo等等。
+//接下来的任务主要是配置环境，nodejs安装，hexo等等。以下安装可能不全面
 //先切换到仓库根目录
 npm install hexo-cli -g
 npm install
