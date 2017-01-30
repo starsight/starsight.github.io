@@ -29,7 +29,7 @@
 
   
   
-  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -63,9 +63,9 @@
 
 
 
-<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="树莓派,weibo,微博," />
@@ -77,7 +77,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.png?v=5.1.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=5.1.0" />
 
 
 
@@ -88,29 +88,29 @@
 首先去open.weibo.com 先建立自己的应用，你会得到一个 App Key App Secret ，除此以外我们需要在 应用信息-高级信息中，把授权回调页 写成https://api.weibo.com/oauth2/default.html 取消授权回调页 同样即可">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Raspberry Pi 3 发微博">
-<meta property="og:url" content="http://wenjiehe.com/blog/2016/04/24/2016-04-24-raspberry-weibo/index.html">
+<meta property="og:url" content="http://wenjiehe.com/2016/04/24/2016-04-24-raspberry-weibo/index.html">
 <meta property="og:site_name" content="Starsight">
 <meta property="og:description" content="本打算做个微博机器人，但是貌似微博把接口的权限改变了，不是很好弄，所以这里先做个半自动的。
 首先去open.weibo.com 先建立自己的应用，你会得到一个 App Key App Secret ，除此以外我们需要在 应用信息-高级信息中，把授权回调页 写成https://api.weibo.com/oauth2/default.html 取消授权回调页 同样即可">
-<meta property="og:image" content="http://wenjiehe.com/blog/blog/images/weibo/1.jpg">
-<meta property="og:image" content="http://wenjiehe.com/blog/blog/images/weibo/2.jpg">
-<meta property="og:image" content="http://wenjiehe.com/blog/blog/images/weibo/3.jpg">
-<meta property="og:image" content="http://wenjiehe.com/blog/blog/images/weibo/4.jpg">
-<meta property="og:image" content="http://wenjiehe.com/blog/blog/images/weibo/5.jpg">
-<meta property="og:image" content="http://wenjiehe.com/blog/blog/images/weibo/6.jpg">
+<meta property="og:image" content="http://wenjiehe.com/images/weibo/1.jpg">
+<meta property="og:image" content="http://wenjiehe.com/images/weibo/2.jpg">
+<meta property="og:image" content="http://wenjiehe.com/images/weibo/3.jpg">
+<meta property="og:image" content="http://wenjiehe.com/images/weibo/4.jpg">
+<meta property="og:image" content="http://wenjiehe.com/images/weibo/5.jpg">
+<meta property="og:image" content="http://wenjiehe.com/images/weibo/6.jpg">
 <meta property="og:updated_time" content="2017-01-29T15:47:45.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Raspberry Pi 3 发微博">
 <meta name="twitter:description" content="本打算做个微博机器人，但是貌似微博把接口的权限改变了，不是很好弄，所以这里先做个半自动的。
 首先去open.weibo.com 先建立自己的应用，你会得到一个 App Key App Secret ，除此以外我们需要在 应用信息-高级信息中，把授权回调页 写成https://api.weibo.com/oauth2/default.html 取消授权回调页 同样即可">
-<meta name="twitter:image" content="http://wenjiehe.com/blog/blog/images/weibo/1.jpg">
+<meta name="twitter:image" content="http://wenjiehe.com/images/weibo/1.jpg">
 
 
 
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/blog/',
+    root: '/',
     scheme: 'Mist',
     sidebar: {"position":"left","display":"post"},
     fancybox: true,
@@ -131,7 +131,7 @@
 
 
 
-  <link rel="canonical" href="http://wenjiehe.com/blog/2016/04/24/2016-04-24-raspberry-weibo/"/>
+  <link rel="canonical" href="http://wenjiehe.com/2016/04/24/2016-04-24-raspberry-weibo/"/>
 
 
 
@@ -176,7 +176,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/blog/"  class="brand" rel="start">
+    <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">Starsight</span>
       <span class="logo-line-after"><i></i></span>
@@ -203,7 +203,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/blog/" rel="section">
+          <a href="/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -213,7 +213,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/blog/archives" rel="section">
+          <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -223,7 +223,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/blog/tags" rel="section">
+          <a href="/tags" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -233,7 +233,7 @@
       
         
         <li class="menu-item menu-item-message">
-          <a href="/blog/message" rel="section">
+          <a href="/message" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-external-link"></i> <br />
             
@@ -293,12 +293,12 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://wenjiehe.com/blog/blog/2016/04/24/2016-04-24-raspberry-weibo/">
+  <link itemprop="mainEntityOfPage" href="http://wenjiehe.com/2016/04/24/2016-04-24-raspberry-weibo/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="贺文杰">
     <meta itemprop="description" content="">
-    <meta itemprop="image" content="/blog/images/headphoto.jpg">
+    <meta itemprop="image" content="/images/headphoto.jpg">
   </span>
 
   <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -355,7 +355,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/2016-04/" itemprop="url" rel="index">
+                  <a href="/categories/2016-04/" itemprop="url" rel="index">
                     <span itemprop="name">2016-04</span>
                   </a>
                 </span>
@@ -373,7 +373,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/blog/2016/04/24/2016-04-24-raspberry-weibo/#comments" itemprop="discussionUrl">
+                <a href="/2016/04/24/2016-04-24-raspberry-weibo/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/24/2016-04-24-raspberry-weibo/" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -401,7 +401,7 @@
 
       
         <p>本打算做个微博机器人，但是貌似微博把接口的权限改变了，不是很好弄，所以这里先做个半自动的。</p>
-<p>首先去open.weibo.com 先建立自己的应用，你会得到一个 App Key App Secret ，除此以外我们需要在 应用信息-高级信息中，把授权回调页 写成<a href="https://api.weibo.com/oauth2/default.html" target="_blank" rel="external">https://api.weibo.com/oauth2/default.html</a> 取消授权回调页 同样即可<br><a id="more"></a><br><img src="/blog/images/weibo/1.jpg"></p>
+<p>首先去open.weibo.com 先建立自己的应用，你会得到一个 App Key App Secret ，除此以外我们需要在 应用信息-高级信息中，把授权回调页 写成<a href="https://api.weibo.com/oauth2/default.html" target="_blank" rel="external">https://api.weibo.com/oauth2/default.html</a> 取消授权回调页 同样即可<br><a id="more"></a><br><img src="/images/weibo/1.jpg"></p>
 <pre><code>#coding=utf-8
 
 #! /usr/bin/python
@@ -455,16 +455,16 @@ if __name__ == &quot;__main__&quot;:
         run()
 </code></pre><p>weibo 这个库来自于 廖雪峰-Python微博SDK <a href="http://github.liaoxuefeng.com/sinaweibopy/" target="_blank" rel="external">http://github.liaoxuefeng.com/sinaweibopy/</a></p>
 <p>运行之后会让你登录：</p>
-<img src="/blog/images/weibo/2.jpg">
+<img src="/images/weibo/2.jpg">
 <p>我们复制控制台显示出来的链接，粘贴到浏览器去获得code：</p>
-<img src="/blog/images/weibo/3.jpg">
+<img src="/images/weibo/3.jpg">
 <p>如果第一次登微博，就需要输一下帐号，密码，我的之前已经登陆过了。</p>
 <p>看地址栏最后有一串字符：</p>
-<img src="/blog/images/weibo/4.jpg">
+<img src="/images/weibo/4.jpg">
 <p>然后会问你要不要发微博，我们来发一条：</p>
-<img src="/blog/images/weibo/5.jpg">
+<img src="/images/weibo/5.jpg">
 <p>去微博看一看：</p>
-<img src="/blog/images/weibo/6.jpg">
+<img src="/images/weibo/6.jpg">
 <p>在之前，微博api是可以自己获得code，不需要手动到浏览器去粘贴获得，但是现在好像不可以了（但是还是有途径的），下一次再试试能不能自动登录。</p>
 
       
@@ -489,11 +489,11 @@ if __name__ == &quot;__main__&quot;:
       
         <div class="post-tags">
           
-            <a href="/blog/tags/树莓派/" rel="tag"># 树莓派</a>
+            <a href="/tags/树莓派/" rel="tag"># 树莓派</a>
           
-            <a href="/blog/tags/weibo/" rel="tag"># weibo</a>
+            <a href="/tags/weibo/" rel="tag"># weibo</a>
           
-            <a href="/blog/tags/微博/" rel="tag"># 微博</a>
+            <a href="/tags/微博/" rel="tag"># 微博</a>
           
         </div>
       
@@ -502,7 +502,7 @@ if __name__ == &quot;__main__&quot;:
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2016/04/23/2016-04-23-raspberry-dnsmasq/" rel="next" title="Raspberry Pi 3 搭建本地DNS服务器">
+              <a href="/2016/04/23/2016-04-23-raspberry-dnsmasq/" rel="next" title="Raspberry Pi 3 搭建本地DNS服务器">
                 <i class="fa fa-chevron-left"></i> Raspberry Pi 3 搭建本地DNS服务器
               </a>
             
@@ -512,7 +512,7 @@ if __name__ == &quot;__main__&quot;:
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2016/04/28/2016-04-28-raspberry-ngrok/" rel="prev" title="Raspberry Pi 3 ngrok内网穿透">
+              <a href="/2016/04/28/2016-04-28-raspberry-ngrok/" rel="prev" title="Raspberry Pi 3 ngrok内网穿透">
                 Raspberry Pi 3 ngrok内网穿透 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -532,7 +532,7 @@ if __name__ == &quot;__main__&quot;:
         <div class="ds-share flat" data-thread-key="2016/04/24/2016-04-24-raspberry-weibo/"
      data-title="Raspberry Pi 3 发微博"
      data-content=""
-     data-url="http://wenjiehe.com/blog/blog/2016/04/24/2016-04-24-raspberry-weibo/">
+     data-url="http://wenjiehe.com/2016/04/24/2016-04-24-raspberry-weibo/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -560,7 +560,7 @@ if __name__ == &quot;__main__&quot;:
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/04/24/2016-04-24-raspberry-weibo/"
-           data-title="Raspberry Pi 3 发微博" data-url="http://wenjiehe.com/blog/blog/2016/04/24/2016-04-24-raspberry-weibo/">
+           data-title="Raspberry Pi 3 发微博" data-url="http://wenjiehe.com/2016/04/24/2016-04-24-raspberry-weibo/">
       </div>
     
   </div>
@@ -588,7 +588,7 @@ if __name__ == &quot;__main__&quot;:
       <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/blog/images/headphoto.jpg"
+               src="/images/headphoto.jpg"
                alt="贺文杰" />
           <p class="site-author-name" itemprop="name">贺文杰</p>
           <p class="site-description motion-element" itemprop="description"></p>
@@ -597,7 +597,7 @@ if __name__ == &quot;__main__&quot;:
         
           
             <div class="site-state-item site-state-posts">
-              <a href="/blog/archives">
+              <a href="/archives">
                 <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">日志</span>
               </a>
@@ -615,7 +615,7 @@ if __name__ == &quot;__main__&quot;:
 
           
             <div class="site-state-item site-state-tags">
-              <a href="/blog/tags">
+              <a href="/tags">
                 <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
@@ -758,46 +758,46 @@ if __name__ == &quot;__main__&quot;:
 
 
   
-  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
 
   
-  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
-  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
-  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
-
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   
 
 
-  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
 
 
 
@@ -823,8 +823,8 @@ if __name__ == &quot;__main__&quot;:
   
     
     
-    <script src="/blog/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-    <script src="/blog/js/src/hook-duoshuo.js"></script>
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
   
 
 
@@ -848,7 +848,7 @@ if __name__ == &quot;__main__&quot;:
     if (search_path.length == 0) {
       search_path = "search.xml";
     }
-    var path = "/blog/" + search_path;
+    var path = "/" + search_path;
     // monitor main search box;
 
     function proceedsearch() {

@@ -5,7 +5,7 @@
     
     <entry>
       <title><![CDATA[行迹V0.6版本概述总结]]></title>
-      <url>http://wenjiehe.com/blog/blog/2016/10/15/2016-10-15-xingji-2/</url>
+      <url>http://wenjiehe.com/2016/10/15/2016-10-15-xingji-2/</url>
       <content type="html"><![CDATA[<p>这篇文章讲讲目前行迹版本（v0.6）的一些总结。最开始的版本，对于签到信息等信息类的管理展示用的是开源库cardslib，但是我用的比较简单，开始不太清楚ListView和RecyclerView的使用方式，在做cardslib的refresh和reload时，遇到了很多问题，这一块还没有彻底解决，后来选择了一个国人的开源库canrefresh算是解决了问题，应用的一个问题在于很少使用一些优秀的开源库，图片加载的，json解析的等，开始想着先用最基础（抠脚）的方式把基本功能解决，再慢慢上复杂的东西。当然这么想没错的，但是可能把起点定的太低了，总想着几天解决一个功能，其实还是需要把基础抓好，慢慢完善的，当然现在时间过于碎片了，也没办法。<a id="more"></a></p>
 <p>现在0.6版本界面布局采用左滑拉出菜单栏，菜单功能目前有：“签到”，“历史签到”，“附近动态”，“设置”和“退出应用”五个部分，头像还可以点击进入“我的动态”，其中有个人资料设置和所有个人的动态展示。签到采用Fragment，直接在主界面中显示一个百度地图的控件，在地图中展示已经签到的位置（SignFragment），新增一个签到有两种方式：文字签到和带图片签到（SignActivity），现在签到展示栏对于图片缓存和压缩没有处理，所以上传大图片的话估计会直接死机……图片选择这边用的开源库，但是做了好久，然而发现其实可以直接使用图片/拍照进行选择，没有必要非得做在一个界面，而且在头像上传的位置也就是这么实现的，一个APP两种图片选择逻辑，虽然说都是常见的，但还是有点像一个堆砌品。</p>
 <p>历史签到（MyHistorySignActivity）里面比较复杂的事就是refresh和reload了，reload每次加载一批数据，具体实现是每次查询一周内的签到数据（一般不差过10次），每load一次就往上增加一周刷新。加载的形式分为两种，带图片和不带图片，在RecyclerView中，我们需要在onBindViewHolder函数中完成图片的加载，特别注意的是，如果我们打算采用默认图片不设置其他图片，也不能在xml文件中直接定义默认图片，要在onBindViewHolder函数中，选择设置图片的显示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if()</div><div class="line">&#123;</div><div class="line">设置图片</div><div class="line">&#125;else&#123;</div><div class="line">设置默认图片</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -14,33 +14,33 @@
 <p>左侧头像点击进去就是个人的动态，目前包括签到信息，喜欢和被喜欢的信息，在头像位置进入个人资料设定（EditUserInfoActivity）就可以编辑个人资料。<br>以上就是大体的从界面入手简析了工程内容，当然应用的注册登录这块做的时间已经比较长了，留到以后有空简单说一下。</p>
 <p>下载链接：<a href="http://123.206.214.17/xingji/xingji.apk" target="_blank" rel="external">最新版行迹</a>  </p>
 <p>扫描二维码： </p>
-<img src="/blog/images/xingji-2/1.png"> ]]></content>
+<img src="/images/xingji-2/1.png"> ]]></content>
     </entry>
     
     <entry>
       <title><![CDATA[行迹开篇]]></title>
-      <url>http://wenjiehe.com/blog/blog/2016/08/18/2016-08-18-xingji-1/</url>
+      <url>http://wenjiehe.com/2016/08/18/2016-08-18-xingji-1/</url>
       <content type="html"><![CDATA[<p>毕业前开始写一款应用，经过一次大的重构，现在这个应用已经稍微像点样子了，准备开始一边写技术总结，一边做下去。<a id="more"></a></p>
 <p>因为开发应用的时候，android基本玩的差不多了，算是边学边开发，所以很多架构比较散，不最优，只能慢慢地一步一不提升了。我们总是由弱到强的嘛！</p>
 <p>说正题，这款应用我很久之前就想做了，但是一直犹豫以后做的方向，是嵌入式还是android，现在基本选择android方向了，除非过两年android衰弱的不行，VR/物联网崛起那就再看咯。应用的名字叫“行迹”，主要是针对一些爱四处旅行的人记录下自己的脚步，算是一个总结和念想，有点类似于qq空间或者朋友圈的签到，不过这个更多的是给自己看的，而不是一种“炫耀”的签到（当然后期有能力的话还是会做社交类的），同时这个更加基于位置而签到，重点在于记录；不像上述两个功能，重点在于分享社交。</p>
 <p>第一版应用的服务器和客户端都是自己亲自来做，因为没有做过网络应用，所以想尝试下，但是两个都不擅长，于是慢慢地一点点摸索，客户端全是发送GET请求进行交互，JSON数据也全是自己手动拼凑……不过好歹也是凑出来了。基本的签到功能，历史数据删查功能，用户的登录，数据同步都有了样子，但是看上去架构太差，只是为了满足功能的东拼西凑，数据的安全、后续升级考虑的较少，而且界面太丑，只能算个学习作品，自己会什么就做成什么样……</p>
 <p>以下是第一版的截图：</p>
-<img src="/blog/images/xingji-1/1.jpg">
-<img src="/blog/images/xingji-1/2.jpg">
-<img src="/blog/images/xingji-1/3.jpg">
-<img src="/blog/images/xingji-1/4.jpg">
+<img src="/images/xingji-1/1.jpg">
+<img src="/images/xingji-1/2.jpg">
+<img src="/images/xingji-1/3.jpg">
+<img src="/images/xingji-1/4.jpg">
 <p>第二版后端用了leancloud和腾讯云的TAB服务，后端要考虑的东西大大减少，需要学习一些接口操作等，算是方便了不少。客户端的风格采用侧滑式，照着手机上几款相似的应用（网易云音乐，bilibili，即刻，掘金等）慢慢设计客户端的UI和交互，尽力去实现，实在不能就找开源库或者可替代方案了。</p>
 <p>这是第二版的截图：</p>
-<img src="/blog/images/xingji-1/5.jpg">
-<img src="/blog/images/xingji-1/6.jpg">
-<img src="/blog/images/xingji-1/7.jpg">
+<img src="/images/xingji-1/5.jpg">
+<img src="/images/xingji-1/6.jpg">
+<img src="/images/xingji-1/7.jpg">
 <p>好了，第二篇开始具体讲重构过程中的具体技术问题，目前没能力谈架构，先做好技术细节，慢慢总结，复杂的问题以后也会慢慢遇到和解决的。</p>
 ]]></content>
     </entry>
     
     <entry>
       <title><![CDATA[Raspberry Pi 3 opencv+python的人脸识别]]></title>
-      <url>http://wenjiehe.com/blog/blog/2016/05/01/2016-05-01-raspberry-identify-face/</url>
+      <url>http://wenjiehe.com/2016/05/01/2016-05-01-raspberry-identify-face/</url>
       <content type="html"><![CDATA[<p>上次安装了opencv库，这次我们来使用一下。</p>
 <a id="more"></a>
 <p>安装PIL库</p>
@@ -49,16 +49,16 @@
 <p>接下来只要运行python xx.py</p>
 <p>过一会，如果图片内有人的话生成一个文件夹，里面有一张人脸的截图和一张人脸的标识图。</p>
 <p>以下为示例：</p>
-<img src="/blog/images/face/1.jpg">
-<img src="/blog/images/face/2.jpg">
-<img src="/blog/images/face/3.jpg">
+<img src="/images/face/1.jpg">
+<img src="/images/face/2.jpg">
+<img src="/images/face/3.jpg">
 <p>接下来用一下摄像头：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install fswebcam </div><div class="line">sudo fswebcam --device /dev/video0  a.jpg</div></pre></td></tr></table></figure>
 <p>在 process(“kobe.jpg”) 前面加一句:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">os.system(&quot;fswebcam --device /dev/video0 /home/pi/Desktop/kobe.jpg&quot;)</div></pre></td></tr></table></figure>
 <p>看一下效果：</p>
-<img src="/blog/images/face/4.jpg">
-<img src="/blog/images/face/5.jpg">
+<img src="/images/face/4.jpg">
+<img src="/images/face/5.jpg">
 <p>光线不好还是能认出来，说明opencv自带的分类器算开源里面不错的了~</p>
 <p>参考:<br><a href="http://bbs.ickey.cn/group-topic-id-67165.html" target="_blank" rel="external">Tigerboard开发板试用体验 python+opencv的人脸识别</a><br><a href="http://blog.csdn.net/u010873775/article/details/50615834" target="_blank" rel="external">NanoPi2试用体验 简单人脸识别-结项</a></p>
 ]]></content>
@@ -66,13 +66,13 @@
     
     <entry>
       <title><![CDATA[Raspberry Pi 3 编译opencv]]></title>
-      <url>http://wenjiehe.com/blog/blog/2016/04/30/2016-04-30-raspberry-opencv-install/</url>
+      <url>http://wenjiehe.com/2016/04/30/2016-04-30-raspberry-opencv-install/</url>
       <content type="html"><![CDATA[<p>OpenCV的全称是：Open Source Computer Vision Library。OpenCV是一个基于（开源）发行的跨平台计算机视觉库，可以运行在Linux、Windows和Mac OS操作系统上。它轻量级而且高效——由一系列C函数和少量C++类构成，同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。</p>
 <p>需要完成此次的项目，离不开opencv的支持，接下来我们就在树莓派上安装opencv。<br><a id="more"></a></p>
 <p>安装OpenCV的依赖包：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libqt4-dev libvtk5-qt4-dev</div></pre></td></tr></table></figure>
 <p>接下来需要从OpenCV官方网站：<a href="http://opencv.org" target="_blank" rel="external">http://opencv.org</a> 下载Linux版本的OpenCV的源代码：</p>
-<img src="/blog/images/opencv-install/1.jpg">
+<img src="/images/opencv-install/1.jpg">
 <p>我选择Linux平台下的2.4.9版本的源码包，将压缩包解压到/usr/local目录下。</p>
 <p>进入opencv-2.4.9目录，新建一个build目录： </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo mkdir build</div></pre></td></tr></table></figure>
@@ -80,12 +80,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install cmake</div></pre></td></tr></table></figure>
 <p>进入build目录，利用下面的cmake命令进行编译设置：</p>
 <p>注意下python部分：</p>
-<img src="/blog/images/opencv-install/2.jpg">
+<img src="/images/opencv-install/2.jpg">
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cmake -D CMAKE_BUILD_TYPE=RELEASE -D ..</div></pre></td></tr></table></figure>
 <p>等待检测和设置完成,就可以开始编译了:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo make</div><div class="line">sudo make install</div><div class="line">#更新搜索动态链接库</div><div class="line">sudo ldconfig</div></pre></td></tr></table></figure>
-<img src="/blog/images/opencv-install/3.jpg">
-<img src="/blog/images/opencv-install/4.jpg">
+<img src="/images/opencv-install/3.jpg">
+<img src="/images/opencv-install/4.jpg">
 <p>在python环境下执行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">import cv</div></pre></td></tr></table></figure>
 <p>没有报错则安装成功~</p>
@@ -95,14 +95,14 @@
     
     <entry>
       <title><![CDATA[Raspberry Pi 3 使用owncloud云服务]]></title>
-      <url>http://wenjiehe.com/blog/blog/2016/04/29/2016-04-29-raspberry-owncloud/</url>
+      <url>http://wenjiehe.com/2016/04/29/2016-04-29-raspberry-owncloud/</url>
       <content type="html"><![CDATA[<p>我们将要搭建自己的云系统平台，更精确的说是一个云存储系统，正如上面的产品所提供的功能。我们将使用开源软件ownCloud来搭建自己的私有云。ownCloud 起源于一个叫The KDE 云计算项目，现在已经适用于大多主流平台，它最早是KED的开发者Frank Karlitschek 创建的，现在由一个ownCloud team共同开发。</p>
 <p>首先介绍一下ownCloud：<br>简单来说就是一个基于PHP的自建网盘。基本上是私人使用，没有用户注册功能，但是有用户添加功能，你可以无限制地添加用户，OwnCloud还提供了不少的免费应用，这些应用可以让你更好观看视频、倾听音乐等。<br><a id="more"></a></p>
 <p>ownCloud 内核是用PHP5写的，支持SQLite、MySQL、Oracle以及PostgreSQL等数据库。为了简单，我们将用MySQL数据库。在你的Linux系统下你需要安装以下软件：</p>
 <p>PHP 安装包：php5, php5-gd, php-xml- parser,php5-intl<br>数据库驱动：php5-mysql（如果你使用其他数据库，需要安装相应的数据库以及驱动）<br>Curl 安装包：curl, libcurl3, php5-curl<br>SMB 客户端：smbclient （这个用来挂载Windows共享文件夹的）<br>Web 服务器：apache2  </p>
 <p>####一键安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install apache2 php5 php5-gd php-xml-parser php5-intl php5-sqlite php5-mysql smbclient curl libcurl3 php5-curl mysql-server</div></pre></td></tr></table></figure></p>
 <p>从 <a href="https://owncloud.org/install/" target="_blank" rel="external">https://owncloud.org/install/</a> 下载最新的ownCloud Server 对于本文，我们使用owncloud-9.0.1 版本</p>
-<img src="/blog/images/owncloud/1.jpg">
+<img src="/images/owncloud/1.jpg">
 <p>对于基于Debian发行版的Linux系统，web服务器的根目录为/var/www  我实际操作过程中似乎不可用，于是我就放在了html文件夹下。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd /var/www/html  #（网页目录）</div><div class="line">tar jxf owncloud-9.0.1.tar.bz2 -C  /var/www/html   #(解压至web目录)</div><div class="line">cd /var/www/html/owncloud	 #（进入owncloud web目录）</div><div class="line">mkdir data  	#(建立数据库目录)</div><div class="line">cd data</div></pre></td></tr></table></figure>
 <p>####OwnCloud在安装的过程中需要对一些目录有写的权限，为此，web服务器用户（www-data对于基于Debian的系统）必须要拥有apps、data、config目录的权限。运行以下命令完成：</p>
@@ -110,12 +110,12 @@
 <p>还需要修改下配置文件：<br>（网上说法不一,有说是 /etc/apache2/sites-enabled/000-default.conf ，还有说 /etc/httpd/conf.d/owncloud.conf 不过我没找到此文件）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vi /etc/apache2/apache2.conf</div></pre></td></tr></table></figure></p>
 <p>修改如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;Directory /var/www/&gt;</div><div class="line">        Options Indexes FollowSymLinks</div><div class="line">        AllowOverride All</div><div class="line">        Require all granted</div><div class="line">&lt;/Directory&gt;</div></pre></td></tr></table></figure></p>
 <p>打开浏览器，输入<a href="http://IP/owncloud" target="_blank" rel="external">http://IP/owncloud</a> </p>
-<img src="/blog/images/owncloud/2.jpg">
+<img src="/images/owncloud/2.jpg">
 <p>电脑上装一下owncloud的客户端，然后操作比较简单</p>
 <p>看我的同步效果：</p>
-<img src="/blog/images/owncloud/3.jpg">
-<img src="/blog/images/owncloud/4.jpg">
-<img src="/blog/images/owncloud/5.jpg">
+<img src="/images/owncloud/3.jpg">
+<img src="/images/owncloud/4.jpg">
+<img src="/images/owncloud/5.jpg">
 <p>这是局域网的访问，如果没公网ip，则可用ngrok内网转发来实现外网访问。</p>
 <p>参考:<br><a href="http://jjliu.blog.ustc.edu.cn/198/" target="_blank" rel="external">使用OwnCloud创建私有云</a><br><a href="https://alexlee.cn/%e6%a0%91%e8%8e%93%e6%b4%beraspberry-pi%e5%ae%89%e8%a3%85owncloud%e6%90%ad%e5%bb%ba%e7%a7%81%e6%9c%89%e4%ba%91%e6%9c%8d%e5%8a%a1%e5%99%a8/" target="_blank" rel="external">树莓派Raspberry Pi安装ownCloud搭建私有云服务器</a><br><a href="http://www.linuxidc.com/Linux/2013-08/89380.htm" target="_blank" rel="external">Ubuntu 12.04下使用ownCloud搭建私人存储云</a><br><a href="http://www.linuxidc.com/Linux/2014-03/98757.htm" target="_blank" rel="external">CentOS 6.3搭建个人私有云存储ownCloud</a>  </p>
 ]]></content>
@@ -123,33 +123,33 @@
     
     <entry>
       <title><![CDATA[Raspberry Pi 3 ngrok内网穿透]]></title>
-      <url>http://wenjiehe.com/blog/blog/2016/04/28/2016-04-28-raspberry-ngrok/</url>
+      <url>http://wenjiehe.com/2016/04/28/2016-04-28-raspberry-ngrok/</url>
       <content type="html"><![CDATA[<p>现在很多宽带服务都不分公网ip，那怎么让外网访问树莓派的服务呢？<br>ngrok 就可以实现外网访问树莓派，ngrok的具体介绍和实现就不说了，主要来看看怎么使用。<br><a id="more"></a></p>
 <p>我用的是国内的ngrok.cc 的服务。</p>
 <p>去ngrok.cc 下载arm版本的客户端，解压。<br>修改 ngrok.cfg 文件 </p>
 <p>这里的token填写在 <a href="http://www.ngrok.cc/index.php/Member/index.html" target="_blank" rel="external">Ngrok管理中心</a> 的token</p>
-<img src="/blog/images/ngrok/1.jpg">
+<img src="/images/ngrok/1.jpg">
 <p>我们需要在域名列表里面注册一下：</p>
-<img src="/blog/images/ngrok/2.jpg">
+<img src="/images/ngrok/2.jpg">
 <p>我这里用的是自己的域名，还需要在dns解析 加一条记录</p>
-<img src="/blog/images/ngrok/3.jpg">
+<img src="/images/ngrok/3.jpg">
 <p>不运行服务，直接输入域名，应该可以看到如下文字：</p>
-<img src="/blog/images/ngrok/4.jpg">
+<img src="/images/ngrok/4.jpg">
 <p>说明这部分没有问题了~</p>
 <p>接下来启动服务：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./ngrok -config ngrok.cfg start test</div></pre></td></tr></table></figure></p>
 <p>这样表示运行成功：  </p>
-<img src="/blog/images/ngrok/5.jpg">
+<img src="/images/ngrok/5.jpg">
 <p>打开浏览器，刷新一下刚才的界面：</p>
-<img src="/blog/images/ngrok/6.jpg">
+<img src="/images/ngrok/6.jpg">
 <p>我们把上一次的owncloud也给加上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">test.wenjiehe.com/owncloud</div></pre></td></tr></table></figure></p>
-<img src="/blog/images/ngrok/7.jpg">  
+<img src="/images/ngrok/7.jpg">  
 <p>可以照常使用~~</p>
 <p>可能遇到 ####正在访问来自不信任域名的服务器,请联系你的系统管理员。如果你是系统管理员，配置config/config.php文件中参数”trusted_domain”<br>则修改下config.php</p>
 <pre><code>sudo vi /var/www/html/owncloud/config/config.php
-</code></pre><img src="/blog/images/ngrok/8.jpg">
+</code></pre><img src="/images/ngrok/8.jpg">
 <p>同时再提供下android版本的登录成功的截图：</p>
-<img src="/blog/images/ngrok/9.jpg">
-<img src="/blog/images/ngrok/10.jpg">
+<img src="/images/ngrok/9.jpg">
+<img src="/images/ngrok/10.jpg">
 <p>如果没有自己的域名也可以使用ngrok.cc提供的二级域名。</p>
 <p>参考:<br><a href="http://ngrok.cc/" target="_blank" rel="external">Sunny-Ngrok内网转发</a><br><a href="https://www.chiphell.com/thread-1534193-1-1.html" target="_blank" rel="external">“正在访问来自不信任域名的服务器”的解决办法</a><br><a href="https://www.zhihu.com/question/42433730" target="_blank" rel="external">如何让树莓派可以被外网访问？</a></p>
 ]]></content>
@@ -157,9 +157,9 @@
     
     <entry>
       <title><![CDATA[Raspberry Pi 3 发微博]]></title>
-      <url>http://wenjiehe.com/blog/blog/2016/04/24/2016-04-24-raspberry-weibo/</url>
+      <url>http://wenjiehe.com/2016/04/24/2016-04-24-raspberry-weibo/</url>
       <content type="html"><![CDATA[<p>本打算做个微博机器人，但是貌似微博把接口的权限改变了，不是很好弄，所以这里先做个半自动的。</p>
-<p>首先去open.weibo.com 先建立自己的应用，你会得到一个 App Key App Secret ，除此以外我们需要在 应用信息-高级信息中，把授权回调页 写成<a href="https://api.weibo.com/oauth2/default.html" target="_blank" rel="external">https://api.weibo.com/oauth2/default.html</a> 取消授权回调页 同样即可<br><a id="more"></a><br><img src="/blog/images/weibo/1.jpg"></p>
+<p>首先去open.weibo.com 先建立自己的应用，你会得到一个 App Key App Secret ，除此以外我们需要在 应用信息-高级信息中，把授权回调页 写成<a href="https://api.weibo.com/oauth2/default.html" target="_blank" rel="external">https://api.weibo.com/oauth2/default.html</a> 取消授权回调页 同样即可<br><a id="more"></a><br><img src="/images/weibo/1.jpg"></p>
 <pre><code>#coding=utf-8
 
 #! /usr/bin/python
@@ -213,23 +213,23 @@ if __name__ == &quot;__main__&quot;:
         run()
 </code></pre><p>weibo 这个库来自于 廖雪峰-Python微博SDK <a href="http://github.liaoxuefeng.com/sinaweibopy/" target="_blank" rel="external">http://github.liaoxuefeng.com/sinaweibopy/</a></p>
 <p>运行之后会让你登录：</p>
-<img src="/blog/images/weibo/2.jpg">
+<img src="/images/weibo/2.jpg">
 <p>我们复制控制台显示出来的链接，粘贴到浏览器去获得code：</p>
-<img src="/blog/images/weibo/3.jpg">
+<img src="/images/weibo/3.jpg">
 <p>如果第一次登微博，就需要输一下帐号，密码，我的之前已经登陆过了。</p>
 <p>看地址栏最后有一串字符：</p>
-<img src="/blog/images/weibo/4.jpg">
+<img src="/images/weibo/4.jpg">
 <p>然后会问你要不要发微博，我们来发一条：</p>
-<img src="/blog/images/weibo/5.jpg">
+<img src="/images/weibo/5.jpg">
 <p>去微博看一看：</p>
-<img src="/blog/images/weibo/6.jpg">
+<img src="/images/weibo/6.jpg">
 <p>在之前，微博api是可以自己获得code，不需要手动到浏览器去粘贴获得，但是现在好像不可以了（但是还是有途径的），下一次再试试能不能自动登录。</p>
 ]]></content>
     </entry>
     
     <entry>
       <title><![CDATA[Raspberry Pi 3 搭建本地DNS服务器]]></title>
-      <url>http://wenjiehe.com/blog/blog/2016/04/23/2016-04-23-raspberry-dnsmasq/</url>
+      <url>http://wenjiehe.com/2016/04/23/2016-04-23-raspberry-dnsmasq/</url>
       <content type="html"><![CDATA[<p>需求：上网时莫名地弹出广告，或者莫名的流量被消耗掉导致网速变慢。其次是部分网站域名不能正常被解析，莫名其妙地打不开，或者时好时坏。<a id="more"></a></p>
 <p>管理下局域网的DNS（双十一的时候，把某宝网站直接给解析到本地ip，打不开网页，O(∩_∩)O哈哈~）</p>
 <p>这里我用的是dnsmasq</p>
@@ -240,9 +240,9 @@ if __name__ == &quot;__main__&quot;:
 <p>在/etc/wenjie_dns.conf 写入 DNS服务器，本地的当然得放在第一个，下面的写其它稳定的就行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">nameserver 127.0.0.1</div><div class="line">nameserver 202.206.240.13</div><div class="line">nameserver 202.206.240.12</div></pre></td></tr></table></figure></p>
 <p>重启服务：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service dnsmasq restart</div></pre></td></tr></table></figure></p>
 <p>将Dnsmasq作为本地DNS服务器使用，直接修改电脑的本地DNS的IP地址即可。</p>
-<img src="/blog/images/dns/1.jpg">
+<img src="/images/dns/1.jpg">
 <p>ping 一下试试</p>
-<img src="/blog/images/dns/2.jpg">  
+<img src="/images/dns/2.jpg">  
 <p>大功告成。</p>
 <p>拦截一些广告，也可以把域名劫到127.0.0.1<br>bogus-nxdomain 这个配置文件里的选项可以反dns劫</p>
 <p>对于dns缓存，可以用dig 命令看一下效果。<br>树莓派没有安装，可以安装一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install dnsutils</div></pre></td></tr></table></figure></p>
@@ -253,36 +253,36 @@ if __name__ == &quot;__main__&quot;:
     
     <entry>
       <title><![CDATA[Raspberry Pi 3 中文显示及输入+百度云传输]]></title>
-      <url>http://wenjiehe.com/blog/blog/2016/04/22/2016-04-22-raspberry-baiduyun/</url>
+      <url>http://wenjiehe.com/2016/04/22/2016-04-22-raspberry-baiduyun/</url>
       <content type="html"><![CDATA[<p>树莓派系统显示中文的话，大部分都是一个的小方块，还好我们有非常无私的开源者：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install ttf-wqy-zenhei</div></pre></td></tr></table></figure></p>
 <p>文泉驿的开源中文字体，树莓派全网唯一的开源中文字体库</p>
 <p>能显示中文，输入也是必不可少的：<a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install scim-pinyin</div></pre></td></tr></table></figure></p>
 <p>快捷键也是Ctrl+空格<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo raspi-config</div></pre></td></tr></table></figure></p>
-<img src="/blog/images/baiduyun/1.jpg">  
+<img src="/images/baiduyun/1.jpg">  
 <p>然后选择第五项Internationalisation Options，change_locale，在Default locale for the system environment:中选择zh_CN.UTF-8</p>
 <p>重启就可以生效啦~</p>
 <p>下面装神器：百度云~</p>
 <p><a href="https://github.com/houtianze/bypy" target="_blank" rel="external">https://github.com/houtianze/bypy</a><br>这是地址，把它下载到树莓派上，解压。</p>
 <p>我的树莓派好多python库都装了，所以直接：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bypy.py info</div></pre></td></tr></table></figure></p>
 <p>在浏览器中粘贴那个网址，再输入你的百度账号，<br>会得到一串授权码。</p>
-<img src="/blog/images/baiduyun/2.jpg">  
+<img src="/images/baiduyun/2.jpg">  
 <p>粘贴到刚才的终端上：</p>
-<img src="/blog/images/baiduyun/3.jpg">  
+<img src="/images/baiduyun/3.jpg">  
 <p>好了，至此就搞定了~</p>
 <p>下面测试下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">显示使用帮助和所有命令（英文）: </div><div class="line">bypy.py </div><div class="line"></div><div class="line">更详细的了解某一个命令： </div><div class="line">bypy.py help &lt;command&gt; </div><div class="line"></div><div class="line">显示在云盘（程序的）根目录下文件列表： </div><div class="line">bypy.py list </div><div class="line"></div><div class="line">把当前目录同步到云盘： </div><div class="line">bypy.py syncup </div><div class="line">or </div><div class="line">bypy.py upload </div><div class="line"></div><div class="line">把云盘内容同步到本地来： </div><div class="line">bypy.py syncdown </div><div class="line">or </div><div class="line">bypy.py downdir / </div><div class="line"></div><div class="line">## 比较本地当前目录和云盘（程序的）根目录（这个很有用）：## </div><div class="line">bypy.py compare</div></pre></td></tr></table></figure></p>
 <p>上传下，看一下我的百度云，有了！</p>
-<img src="/blog/images/baiduyun/4.jpg"> 
+<img src="/images/baiduyun/4.jpg"> 
 <p>下载：</p>
-<img src="/blog/images/baiduyun/5.jpg"> 
+<img src="/images/baiduyun/5.jpg"> 
 ]]></content>
     </entry>
     
     <entry>
       <title><![CDATA[Raspberry Pi 3 wifi问题]]></title>
-      <url>http://wenjiehe.com/blog/blog/2016/04/21/2016-04-21-raspberry-wifi-problems/</url>
+      <url>http://wenjiehe.com/2016/04/21/2016-04-21-raspberry-wifi-problems/</url>
       <content type="html"><![CDATA[<p>树莓派自带wifi模块，应该说是很实用的功能，用法其实和USB wifi一样使用，但是树莓派3死活连接不上我的wifi，于是我就参照USB wifi的使用。<br><a id="more"></a><br>先用SSH登陆：</p>
-<img src="/blog/images/wifi/1.jpg">  
-<img src="/blog/images/wifi/2.jpg"> 
+<img src="/images/wifi/1.jpg">  
+<img src="/images/wifi/2.jpg"> 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vi /etc/wpa_supplicant/wpa_supplicant.conf</div></pre></td></tr></table></figure>
 <p>由于回宿舍，没有显示器，所以需要直接修改此文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">network=&#123;</div><div class="line">        ssid=&quot;ssid&quot;</div><div class="line">        psk=&quot;password&quot;</div><div class="line">        key_mgmt=WPA-PSK</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>按照道理说，直接点图形界面的wifi连接，输入密码就可以了，然而我的死活就是不行</p>
@@ -305,34 +305,34 @@ if __name__ == &quot;__main__&quot;:
     
     <entry>
       <title><![CDATA[Raspberry Pi 3 开箱+扩容+samba]]></title>
-      <url>http://wenjiehe.com/blog/blog/2016/04/20/2016-04-20-raspberry-dilatation-and-samba/</url>
+      <url>http://wenjiehe.com/2016/04/20/2016-04-20-raspberry-dilatation-and-samba/</url>
       <content type="html"><![CDATA[<p>昨儿树莓3到手，今天先用了下电阻屏，帖子在此 ，花了些时间，今晚重点吧树莓基础环境先搭建下。<a id="more"></a><br>开箱图：<br>Pi3和微雪的屏</p>
-<img src="/blog/images/samba/1.jpg"> 
-<img src="/blog/images/samba/2.jpg"> 
+<img src="/images/samba/1.jpg"> 
+<img src="/images/samba/2.jpg"> 
 <p>说明书多国语言：</p>
-<img src="/blog/images/samba/3.jpg"> 
+<img src="/images/samba/3.jpg"> 
 <p>正面照：</p>
-<img src="/blog/images/samba/4.jpg"> 
+<img src="/images/samba/4.jpg"> 
 <p>背面：</p>
-<img src="/blog/images/samba/5.jpg"> 
+<img src="/images/samba/5.jpg"> 
 <p>这个3的卡槽由以前的弹出式变成现在直插的，安装时候没有弹簧按压声。</p>
 <p>安装很简单，去 <a href="http://downloads.raspberrypi.org/raspbian_latest" target="_blank" rel="external">http://downloads.raspberrypi.org/raspbian_latest</a> 下载最新镜像即可，用Win32DiskImager 软件写入TF卡。</p>
 <p>到显示器上显示：</p>
-<img src="/blog/images/samba/6.jpg"> 
+<img src="/images/samba/6.jpg"> 
 <p>接下来扩展下TF卡:<br>树莓派有傻瓜式方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo raspi-config</div></pre></td></tr></table></figure></p>
 <p>直接修改下重启就0k了~<br>如果想自己弄可以看这篇帖子：<br><a href="http://bbs.hqchip.com/group-topic-id-35428.html" target="_blank" rel="external">http://bbs.hqchip.com/group-topic-id-35428.html</a></p>
 <p>扩张后如下：</p>
-<img src="/blog/images/samba/7.jpg"> 
+<img src="/images/samba/7.jpg"> 
 <p>安装samba的话和Nanopi什么的大同小异</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install samba</div><div class="line">sudo vi /etc/samba/smb.conf</div><div class="line"></div><div class="line">[global]</div><div class="line">        guest ok = yes</div><div class="line">        security =share</div><div class="line">[wj]</div><div class="line">        comment = User</div><div class="line">        path = /home/pi</div><div class="line">        create mask = 0777</div><div class="line">        directory mask = 0777</div><div class="line">        guest ok = yes</div><div class="line">        browseable = yes</div><div class="line"></div><div class="line">sudo smbd restart</div></pre></td></tr></table></figure>
 <p>修改下权限：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod -R go+rwx /home/pi</div></pre></td></tr></table></figure></p>
 <p>然后查看下ip，就可以在电脑上连接啦~</p>
-<img src="/blog/images/samba/8.jpg"> ]]></content>
+<img src="/images/samba/8.jpg"> ]]></content>
     </entry>
     
     <entry>
       <title><![CDATA[趁年轻，做点自己不喜欢的事]]></title>
-      <url>http://wenjiehe.com/blog/blog/2015/11/27/2015-11-27-wechat-article-1/</url>
+      <url>http://wenjiehe.com/2015/11/27/2015-11-27-wechat-article-1/</url>
       <content type="html"><![CDATA[<p>大家都说你年轻的时候要多做点喜欢的事，等大些时候只能身不由己，为了生活而活。这话说的没错。可是有些时候，可当你说，我讨厌做这件事的时候，<b>你想过你为什么讨厌它么</b>？<a id="more"></a></p>
 <p>你说，我从小就讨厌，这个说的太模糊。其实，有些时候，你只是第一次遇到它的时候，刚好，双方没有在同一频率。于是你就莫名其妙地开始讨厌它了。或者某一天，你听到你父母的一句牢骚，小伙伴的一句抱怨，你试都没试，然后就开始对它敬而远之了。<b>坚持一件事物总是那么不易，哪有放弃来的轻松自在呢？</b></p>
 <p>于是，你一不小心开始对它有了不好的印象，久而久之，一晃一二十年，越长大，越对小时候的害怕加剧，于是，偶尔有人提及它的时候，你总是毫不犹豫地否决掉它：不，我不喜欢它，它太难了，太可怕了，让我喜欢上它？我连正视它的想法都没有……算了吧，恩，它也没什么好的。你不愿意面对它，于是内心开始否定它，细数它的种种缺点，给自己不面对的合理理由。大家都是用这种可笑的行为让自己的行为合理化。</p>
@@ -354,7 +354,7 @@ if __name__ == &quot;__main__&quot;:
     
     <entry>
       <title><![CDATA[计划下的牺牲]]></title>
-      <url>http://wenjiehe.com/blog/blog/2015/11/22/2015-11-22-die-in-plan/</url>
+      <url>http://wenjiehe.com/2015/11/22/2015-11-22-die-in-plan/</url>
       <content type="html"><![CDATA[<p>我个人很喜欢给自己定下具体数量的目标，比如今天晚上我要看多少多少页的书，如果最后因为没看完就不开心，敷衍般也要凑到那个页数，然而第二天其实还要再往前倒退点重新开始看。<a id="more"></a></p>
 <p>我也渐渐知道这种上纲上线的任务指标多半意味着敷衍、草草了事（某些国人最喜欢干这些了），定任务本来是件好事，但如果僵化地制定就没什么意思了，就是个面子工程，求数量而不求质量，满足一下心中的虚荣心了吧？</p>
 <p>然而这种虚荣心却感觉很难舍得丢弃，一来是因为自己这么做了好多年了……二来自己还真的想需要这些来安慰自己的——被努力就会有回报这句话灌输的太多了点，所以想看上去很努力，就算失败了，但也心安了。</p>
@@ -367,7 +367,7 @@ if __name__ == &quot;__main__&quot;:
     
     <entry>
       <title><![CDATA[七月的时光]]></title>
-      <url>http://wenjiehe.com/blog/blog/2015/07/27/2015-07-27-july-time/</url>
+      <url>http://wenjiehe.com/2015/07/27/2015-07-27-july-time/</url>
       <content type="html"><![CDATA[<p>七月发生了好多事情，最早的时候去了夏令营，也是第一次接触除了江苏，陕西以外的985高校，确实名校毕竟有名校的风采，感觉整个格局，气氛都不一样，偶尔看到了中南的实验室，确实比起我们学校来要强，环境，人员，氛围，看了一眼都感觉不一样。所以，要去个好的学校读研呀。<a id="more"></a></p>
 <p>最遗憾的是，飞了9年的New Horizon，我却不能关注它飞掠风采，遥想06年，坐在电视机前看探索发现，也是那时候对天文渐渐有了感觉，近十年过去了，热情慢慢归于平淡，然后只要提起，现在还是会充满躁动呀。</p>
 <p>做了半年的智能车也开始比赛，结果还好，主场之下，有压力也有动力，学长帮忙也很给力，确实是一个负责任的学长，明年可能就是我来了，也要加油。</p>
@@ -379,7 +379,7 @@ if __name__ == &quot;__main__&quot;:
     
     <entry>
       <title><![CDATA[大学，为什么我一直这么忙？]]></title>
-      <url>http://wenjiehe.com/blog/blog/2015/04/30/2015-04-30-i-am-always-busy/</url>
+      <url>http://wenjiehe.com/2015/04/30/2015-04-30-i-am-always-busy/</url>
       <content type="html"><![CDATA[<p>感觉我的大学一直处于忙碌，忙着上课，学习各种东西。我都一直在做什么呢？</p>
 <p>大一的时候都比较认真，不光是学习上，对很多未知的事情都保持敬畏、探索的心。大一上老老实实学习着，没加入什么社团、组织，感觉比别人差了好多（无事恐惧症？），大一下虽然课程比较重，概念比较多，对于我这种上课上课就走神的人来说简直就是噩梦<a id="more"></a>，但居然还是花了很多时间来学习一些大家都学得软件，ps、ai、cad,lr..有些浅尝辄止，有些还是慢慢摸索了大半年的。大一没有花课外时间学习专业基础知识给以后的学习还是造成了好多困难，但学了这么多软件，还是很有用的，算把我带入大学生活了吧。</p>
 <p>大二就开始不老实了，学了那些软件，刚好又和小伙伴成立了个社团，所以开学的时候还是挺忙的，第一届，但除了纳新，之后我们一直没什么事，所以基本也就忙了一个开学月吧，现在发现苗头不太对，有些同学已经有了很明显的专业学习优势，自己还像个小白，什么都不懂（关键上课还老走神），大二的懒散开始出现，不可避免，郁郁度过大二上。这半个学期主要忙于应付初露苗头的专业课，比较难，还没什么底子，上课又走神，过的很艰难，还没有什么回报。</p>
@@ -395,7 +395,7 @@ if __name__ == &quot;__main__&quot;:
     
     <entry>
       <title><![CDATA[大学中的一些学生]]></title>
-      <url>http://wenjiehe.com/blog/blog/2015/03/28/2015-03-28-someone-in-university/</url>
+      <url>http://wenjiehe.com/2015/03/28/2015-03-28-someone-in-university/</url>
       <content type="html"><![CDATA[<p>正值大三，现在的时候应该是对大学特别有感触的时候。趁此写写我所见的学生、老师，还有其他一些更多的真实的大学。<a id="more"></a></p>
 <p>三年前走进学校，大家之间的区别可能存在，但肯定不会有现在的差别之大。之所以说是差别，而不是差距，应该是因为每个人来上大学之前的想法本来就不同，有人高考意外发挥好了，潜移默化地心底里有些放松自己，又离开父母，进入大学之后有些放松自己，过了一二三四年，看到周围的同学取得了不同的成绩，心底里羡慕，然而回看自己两手空空，想做很多事，却空有满腔热血了；有的人高考失意，大学决定好好学习……但更多的人，一不小心选了一个不知道干什么的专业，迷迷糊糊地学了三年，有时严于律己，兢兢业业，有时候徘徊不前，不知路在何方。</p>
 <p>我，包括我所见到的绝大多数人都是上面大致分类的第三种。进入大学，眼花缭乱，不说校外的世界，就校内，图书馆看不完的书，宿舍里玩不尽的电脑、活动室画不完的海报、实验室调不完的bug……你能选择的东西有很多，有些人一头扎进其中一个、义无反顾，有些人顾左顾右，时而风生水起，时而顾影自怜。可能每一种选择都没有错，你不能用是非去评价，有些人会说，你这是在站在你的道德思想观点来评价，你这是道德胁迫（？），让我彻底平等地对待这些做法，我觉得对我可能还是很难，逃离自己的思想体系去思考完全不同的人总是很理解，我大概只能做到：就算你呆在宿舍玩游戏，那你玩出点名堂我也佩服你了。个人见解总有偏见，为什么要把自己的想法完全中立化呢？中立化的理由，大概只有：“关我什么事”了。</p>
@@ -404,7 +404,7 @@ if __name__ == &quot;__main__&quot;:
     
     <entry>
       <title><![CDATA[走在归路上的一点思考]]></title>
-      <url>http://wenjiehe.com/blog/blog/2015/02/08/2015-02-08-thinking-on-the-way/</url>
+      <url>http://wenjiehe.com/2015/02/08/2015-02-08-thinking-on-the-way/</url>
       <content type="html"><![CDATA[<p>###难得再来这种忙碌的单纯生活<br>晚上在路边一家店吃了份饭，突然觉得现在的生活真是很矛盾，忙碌，似乎整天没有时间休息，吃饭也变得很急，安安稳稳地吃完饭再继续干活似乎都是在浪费时间。<a id="more"></a>但确实也很安逸，安逸的是，每天知道自己要去做什么，有什么没有完成，想怎样的办法去实现它。人活得很呆，很累，也可以说不累，不用想很多难以预料的社会性东西，窝在那里解决一个个能被解决的问题。</p>
 <p>然而事情哪里都能被解决的呢？凡事又怎么能到永远不会出问题的时候呢？以前爱和自己说，挨过了这阵苦，以后就会好的；这两天累一下，过几天休息一下补回来，困难的日子就会过去……这种想法到没有什么不好的地方，只是老是抱着这种思维行事，完成的东西大多会有马虎，因为急于等待到自己设定的目标，最后收尾不免仓促，过后如果不出问题，大都懒得再扫尾了。这样容易形成做事马虎的习惯，以为自己抓住了核心就好，其实还有很多意想不到的小麻烦在你一次次马虎中错过了纠正，待到你的事情逐渐繁多起来，那些不介意的小麻烦偶尔跳出来，折腾的你分散精力去解决它们，长此以往，不免效率低下了。</p>
 <p>我看，做些事情还是不要老用时间线压死人，虽然很多时候我们不到那个节骨眼不会去做，但是被逼到最后也就只能马马虎虎地做完，对于那些我们认为很重要的事情，还是在心中给它留下一个位置，慢慢地去做，不要想着抽个时间一次性解决，很多麻烦从来就不能一次性去除的。<br>​<br>所以，到底上，大学这种生活还是安逸的：挑战一直在出现，虽不是循规蹈矩地解决，却大多有前车之鉴。有时候感觉自己累的可笑，不过在重复前人，但想来前人的毕竟是前人，自己还是想要花时间去换取那一份属于自己的经历的。</p>
@@ -414,7 +414,7 @@ if __name__ == &quot;__main__&quot;:
     
     <entry>
       <title><![CDATA[大三的结束与开始]]></title>
-      <url>http://wenjiehe.com/blog/blog/2015/01/23/2015-01-23-end-and-go-on/</url>
+      <url>http://wenjiehe.com/2015/01/23/2015-01-23-end-and-go-on/</url>
       <content type="html"><![CDATA[<p>电脑反复中病毒，前段时间的重装系统暂时帮助度过了病毒危机，前几天突然开始又大量报毒，现在看来可能是移动硬盘和电脑交叉感染，这段时间也就弄了下博客，还是重新弄挺麻烦的，估计又得从头再来了。把电脑上的软件全卸了重装，估计得要几天时间慢慢恢复，慢慢来吧。<a id="more"></a>以前最讨厌这种几天的大工程，做不完的感觉很是压抑，现在任务越来越难，应该懂得有些事情注定要慢慢来，急不得，一天做一点，其实也就只要几天就能完成，所以还是要尽量带着平和的心态去做事情。</p>
 <p>总结一下这二十几天：做了个课设，算是了却了我心中对我专业课的痛，大二的艰难过程可能会重来，但至少不是现在。人不可能在落后时一点焦躁情绪都没有，但不能光焦躁着，心里急，手头也不能闲着，否则你只有一直焦急的份了。不过这些天也忘记了和该交流的人交流，没有趁着一点点没有考试的时间去和人沟通，心里还是挺难过的。有时候不知道如何去沟通，怕突然地问候打搅了别人的学习，这里也说一声抱歉了。</p>
 <p>每到期末心里会有一种落差感，离开的萧条景象，远离一个地方去另外的环境，课程结束准备新的挑战，总是让人略感疲惫啊，但不管过去这段时间是否精彩跌宕，还是死气沉沉，总有结束的时候，不敢面对过去，也不会拥有对将来变化的适应能力。</p>
@@ -424,7 +424,7 @@ if __name__ == &quot;__main__&quot;:
     
     <entry>
       <title><![CDATA[人各有志，从来就不是你堕落的理由]]></title>
-      <url>http://wenjiehe.com/blog/blog/2015/01/09/2015-01-09-everyone-has-different-aims/</url>
+      <url>http://wenjiehe.com/2015/01/09/2015-01-09-everyone-has-different-aims/</url>
       <content type="html"><![CDATA[<p>###人各有志，从来就不是你堕落的理由<br>有些人就是喜欢用借口来狡辩自己的无能。<br>我也喜欢这样。事情做不好了就说自己没有全力以赴、没有细心，自己手头事情多来不及认真处理。比如写这篇文章，也是定下要求之后，磨了好几天才开始动手去做。但还好，我开始写了。<a id="more"></a></p>
 <p>我听说过很多同学说不喜欢自己的专业。他们说高考的时候自己也什么都不知道，听家人亲戚的，或者自己听名字，网上搜索了一下，然后就填了这个专业。我当初其实也大抵如此，虽然学校专业全是我自己选的，但是当时自己基本没有专业概念，只知道自己应该适合学工科（似乎也只能），然后翻了一下招生资料，基本工科学校就那几个专业，于是我也就这么选了专业。可能那时候觉得自己似乎什么专业都能学吧，因此高中的课程比较单一，基本都是学了好多年的，学起来也比较得心应手。<br>然而大学课程基本上所有课程都是一学期的，所以适应速度要快，对于我这种适应能力不是很强的人来说很痛苦。我也曾因为一门很重要的专业课没有学精，很长时间不太喜欢自己的专业。想努力去学好，但心有余而力不足，客观条件以及主观状态不如人意，这门课始终是我一个心结，后来又有一件事让我更加对此失望，可以说信心丧失殆尽。于是为了不使自己被动，我去尝试相关学科的课程，由于初入此学习，开头不是很难，周围又缺少可以量化的东西来判断我的学习效率，所以可以说学的很自在。我一度以为我志在此，在这里能展现我的能力。<br>还好我还比较理性，我让自己花一定时间去做这个东西，如果我真的有兴趣，我就用心去学，朝此发展。<br>过程很曲折，结果就是失败了。<br>因为我又回到自己专业上。一门重要的专业课没学好事情还没有到无路可走的地步。一个偶然的机会，我得到了一次去再学习这门课程的机会。这个机会的由来，是来自于我另外学习的知识，由于周围没有人去做，这个机会顺理成章的被我抓住了。<br>我说我的经历，是想说，你可能并没有你所以为的讨厌它，因为你长时间与它打交道，又没有初始的乐趣点，所以是学乏了。如果让你去换别的专业，悲观一点话，你这时候别无选择，然后硬着头皮学下去；乐观一点，你换专业之前分析清楚，成功找到自己希望的专业。<br>但是，无论怎样，你<strong>短时间内</strong>做着你不太喜欢的事，不是意味着你可以彻底放弃它。不是来告诉自己：我不喜欢它，那我可以心安理得地不去做好它了。难道不应该来找办法摆脱这种不顺利么？一句“人各有志”，你真的以为自己能在志上走远？就算你觉得能走远，那你凭什么摆脱现在的困境，让人给你提供一个你想要的环境呢？唯一的办法就是，拿出你的实力来。<br>不喜欢手头的事，那就先<strong>让别人相信</strong>，你是真的不喜欢，而不是因为困难而放弃；<strong>让自己相信</strong>，自己有能力去做开始以为不行的事。为自己去做自己想做的事争取一个机会，自己努力创造改变的氛围，而不是大嘴一张：我不想干了。然后等环境自己变到合适。<br>对生活抱怨，就应该自己去告诉生活。我志不在此，但我不是不行。</p>
 <hr>
@@ -434,7 +434,7 @@ if __name__ == &quot;__main__&quot;:
     
     <entry>
       <title><![CDATA[快去做吧]]></title>
-      <url>http://wenjiehe.com/blog/blog/2015/01/04/2015-01-05-do-quickly/</url>
+      <url>http://wenjiehe.com/2015/01/04/2015-01-05-do-quickly/</url>
       <content type="html"><![CDATA[<p>#####我总是想得很多，做的很少<br>每天到床上之后，几乎总是会想很多，然后越想越睡不着，等实在想累了，可能就会睡着了。当时每次醒来之后却基本上都忘记了自己当时认为的，很正确、优秀的思考。不知不觉自己也对这种思考失去了信心，所谓该思考时不思考，不该思考时，却在思考。这大概不能称之为思考吧，应该叫乱想。<a id="more"></a></p>
 <p>#####我总是追求很多，放弃很少<br>有时候会以很忙的名义，说自己没有时间写点东西。其实有很多时间是被我们白白浪费的。我觉得我很喜欢形式化去做一样东西，或者说，这件事做到最后变成了形式。有时候为了心里的一个完美，就去做一些没有意义的事，其实这也是不尊重自己，可以说这也是被牵着鼻子走，只不过这个牵的人是你自己罢了。你并没有因为实际情况而做出一些非原则性的让步。</p>
 <p>比如有时候，我根本就是没有心思看书了，但我却因为自己定下的计划，决定看到某某页再停。其实我大多时候根本就不想看了，那剩下的几页任务也是草草看完，基本没有效果。</p>
@@ -446,7 +446,7 @@ if __name__ == &quot;__main__&quot;:
     
     <entry>
       <title><![CDATA[如果你想去做的话]]></title>
-      <url>http://wenjiehe.com/blog/blog/2015/01/03/2015-01-05-if-you-like/</url>
+      <url>http://wenjiehe.com/2015/01/03/2015-01-05-if-you-like/</url>
       <content type="html"><![CDATA[<p>###少年，年轻是用来做你不敢的事，而不是做你会的事的呢。</p>
 ]]></content>
     </entry>
