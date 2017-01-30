@@ -46,6 +46,21 @@ git push origin hexo
 //hexo s -g
 hexo d -g  // g为generate 生成，s为本地预览，d为deploy 部署到远程分支
 ```
+
+
+```
+git clone --recursive git@github.com:starsight/starsight.github.io.git //clone 主仓库
+cd starsight.github.io/
+git checkout hexo //切换到hexo，以后基本都是基于此分支，master分支用hexo -d
+cd themes/next/
+git submodule init
+git submodule update //获取我的NexT主题的配置
+//接下来的任务主要是配置环境，nodejs安装，hexo等等。
+//先切换到仓库根目录
+npm install hexo-cli -g
+npm install
+```
+
 参考文章：
 [关于博客同步的解决办法](http://devtian.me/2015/03/17/blog-sync-solution/)  
 [手动配置Git的Submodule](https://cragod.github.io/2016/GitSubmodule/)
