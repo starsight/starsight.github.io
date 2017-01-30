@@ -34,6 +34,18 @@ git commit -m "update next settings in blog sources branch"
 git push origin hexo //注意hexo分支
 ```
 
+以后写文章，只需要在根目录下（hexo分支）进行git add,commit,push(hexo)操作，例如：
+```
+git add .
+git commit -m"new post hexo theme sync solution"
+git push origin hexo
+```
+
+然后再更新master分支，即对外显示的html部分：
+```
+//hexo s -g
+hexo d -g  // g为generate 生成，s为本地预览，d为deploy 部署到远程分支
+```
 参考文章：
 [关于博客同步的解决办法](http://devtian.me/2015/03/17/blog-sync-solution/)  
 [手动配置Git的Submodule](https://cragod.github.io/2016/GitSubmodule/)
