@@ -2,7 +2,7 @@
 layout: post
 title: "Raspberry Pi 3 wifi问题"
 date: 2016-04-21 19:59:09 +0800
-tags: [树莓派,wifi,树莓派3]
+tags: [树莓派,wifi]
 comments: true
 categories: 2016-04
 ---

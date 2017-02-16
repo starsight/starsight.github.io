@@ -4,7 +4,7 @@ title: "基于Hexo的博客同步中的一些问题"
 date: 2017-01-30 21:42:02 +0800
 comments: true
 categories: 2017-01
-tags: [Hexo]
+tags: [Hexo同步]
 ---
 这篇文章讲讲在我的Octopress博客更换成基于Hexo的博客后，为了在多台电脑能够同步中遇到的问题。<!--more-->
 
