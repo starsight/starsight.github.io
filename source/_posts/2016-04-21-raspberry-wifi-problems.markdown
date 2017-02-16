@@ -10,9 +10,9 @@ categories: 2016-04
 <!--more-->
 先用SSH登陆：
   
-{% img /images/wifi/1.jpg%}  
+{% img /imgs/wifi/1.jpg%}  
 
-{% img /images/wifi/2.jpg%} 
+{% img /imgs/wifi/2.jpg%} 
 
 ```
 sudo vi /etc/wpa_supplicant/wpa_supplicant.conf

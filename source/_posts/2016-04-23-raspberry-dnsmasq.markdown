@@ -56,11 +56,11 @@ sudo service dnsmasq restart
 
 将Dnsmasq作为本地DNS服务器使用，直接修改电脑的本地DNS的IP地址即可。
 
-{% img /images/dns/1.jpg%}
+{% img /imgs/dns/1.jpg%}
 
 ping 一下试试
 
-{% img /images/dns/2.jpg%}  
+{% img /imgs/dns/2.jpg%}  
 
 大功告成。
 

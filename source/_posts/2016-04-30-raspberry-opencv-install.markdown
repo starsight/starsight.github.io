@@ -19,7 +19,7 @@ sudo apt-get install libqt4-dev libvtk5-qt4-dev
 
 接下来需要从OpenCV官方网站：http://opencv.org 下载Linux版本的OpenCV的源代码：
 
-{% img /images/opencv-install/1.jpg%}
+{% img /imgs/opencv-install/1.jpg%}
 
 我选择Linux平台下的2.4.9版本的源码包，将压缩包解压到/usr/local目录下。
 
@@ -39,7 +39,7 @@ sudo apt-get install cmake
   
 注意下python部分：
 
-{% img /images/opencv-install/2.jpg%}
+{% img /imgs/opencv-install/2.jpg%}
  
 ```
 cmake -D CMAKE_BUILD_TYPE=RELEASE -D .. 
@@ -54,9 +54,9 @@ sudo make install
 sudo ldconfig 
 ```
 
-{% img /images/opencv-install/3.jpg%}
+{% img /imgs/opencv-install/3.jpg%}
 
-{% img /images/opencv-install/4.jpg%}
+{% img /imgs/opencv-install/4.jpg%}
 
 在python环境下执行
 

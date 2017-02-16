@@ -78,11 +78,11 @@ if __name__ == "__main__":
 
 以下为示例：
 
-{% img /images/face/1.jpg%}
+{% img /imgs/face/1.jpg%}
 
-{% img /images/face/2.jpg%}
+{% img /imgs/face/2.jpg%}
 
-{% img /images/face/3.jpg%}
+{% img /imgs/face/3.jpg%}
 
 接下来用一下摄像头：
 
@@ -99,9 +99,9 @@ os.system("fswebcam --device /dev/video0 /home/pi/Desktop/kobe.jpg")
 
 看一下效果：
 
-{% img /images/face/4.jpg%}
+{% img /imgs/face/4.jpg%}
 
-{% img /images/face/5.jpg%}
+{% img /imgs/face/5.jpg%}
 
 光线不好还是能认出来，说明opencv自带的分类器算开源里面不错的了~
 

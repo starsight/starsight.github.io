@@ -10,21 +10,21 @@ categories: 2016-04
 开箱图：
 Pi3和微雪的屏
 
-{% img /images/samba/1.jpg%} 
+{% img /imgs/samba/1.jpg%} 
 
-{% img /images/samba/2.jpg%} 
+{% img /imgs/samba/2.jpg%} 
 
 说明书多国语言：
 
-{% img /images/samba/3.jpg%} 
+{% img /imgs/samba/3.jpg%} 
 
 正面照：
 
-{% img /images/samba/4.jpg%} 
+{% img /imgs/samba/4.jpg%} 
 
 背面：
 
-{% img /images/samba/5.jpg%} 
+{% img /imgs/samba/5.jpg%} 
 
 这个3的卡槽由以前的弹出式变成现在直插的，安装时候没有弹簧按压声。
 
@@ -33,7 +33,7 @@ Pi3和微雪的屏
 
 到显示器上显示：
 
-{% img /images/samba/6.jpg%} 
+{% img /imgs/samba/6.jpg%} 
 
 接下来扩展下TF卡:
 树莓派有傻瓜式方法：
@@ -47,7 +47,7 @@ http://bbs.hqchip.com/group-topic-id-35428.html
 
 扩张后如下：
 
-{% img /images/samba/7.jpg%} 
+{% img /imgs/samba/7.jpg%} 
 
 安装samba的话和Nanopi什么的大同小异
 
@@ -75,4 +75,4 @@ chmod -R go+rwx /home/pi
 ```
 然后查看下ip，就可以在电脑上连接啦~
 
-{% img /images/samba/8.jpg%} 
+{% img /imgs/samba/8.jpg%} 
