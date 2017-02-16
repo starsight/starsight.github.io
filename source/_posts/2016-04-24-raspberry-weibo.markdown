@@ -12,7 +12,7 @@ categories: 2016-04
 <!--more-->
 {% img /images/weibo/1.jpg%}
 
-```
+```python
 #coding=utf-8
 
 #! /usr/bin/python
