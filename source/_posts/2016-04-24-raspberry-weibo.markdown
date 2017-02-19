@@ -10,7 +10,7 @@ categories: 2016-04
 
 首先去open.weibo.com 先建立自己的应用，你会得到一个 App Key App Secret ，除此以外我们需要在 应用信息-高级信息中，把授权回调页 写成https://api.weibo.com/oauth2/default.html 取消授权回调页 同样即可
 <!--more-->
-{% img /imgs/weibo/1.jpg%}
+{% img /images/weibo/1.jpg%}
 
 ```python
 #coding=utf-8
@@ -70,26 +70,26 @@ weibo 这个库来自于 廖雪峰-Python微博SDK http://github.liaoxuefeng.com
 
 运行之后会让你登录：
 
-{% img /imgs/weibo/2.jpg%}
+{% img /images/weibo/2.jpg%}
 
 
 我们复制控制台显示出来的链接，粘贴到浏览器去获得code：
 
-{% img /imgs/weibo/3.jpg%}
+{% img /images/weibo/3.jpg%}
 
 如果第一次登微博，就需要输一下帐号，密码，我的之前已经登陆过了。
 
 看地址栏最后有一串字符：
 
-{% img /imgs/weibo/4.jpg%}
+{% img /images/weibo/4.jpg%}
 
 然后会问你要不要发微博，我们来发一条：
 
-{% img /imgs/weibo/5.jpg%}
+{% img /images/weibo/5.jpg%}
 
 去微博看一看：
 
-{% img /imgs/weibo/6.jpg%}
+{% img /images/weibo/6.jpg%}
 
 
 在之前，微博api是可以自己获得code，不需要手动到浏览器去粘贴获得，但是现在好像不可以了（但是还是有途径的），下一次再试试能不能自动登录。

@@ -31,4 +31,4 @@ if()
 
 扫描二维码： 
 
-{% img /imgs/xingji-2/1.png%} 
+{% img /images/xingji-2/1.png%} 

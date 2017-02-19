@@ -57,7 +57,11 @@ git submodule init
 git submodule update //获取我的NexT主题的配置
 //接下来的任务主要是配置环境，nodejs安装，hexo等等。以下安装可能不全面
 //先切换到仓库根目录
+npm install -g hexo
 npm install hexo-cli -g
+npm install hexo --save
+npm install hexo-server --save
+npm install hexo-deployer-git --save
 npm install
 ```
 

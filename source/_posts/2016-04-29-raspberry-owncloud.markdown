@@ -27,7 +27,7 @@ sudo apt-get install apache2 php5 php5-gd php-xml-parser php5-intl php5-sqlite p
 
 从 https://owncloud.org/install/ 下载最新的ownCloud Server 对于本文，我们使用owncloud-9.0.1 版本
 
-{% img /imgs/owncloud/1.jpg%}
+{% img /images/owncloud/1.jpg%}
 
 对于基于Debian发行版的Linux系统，web服务器的根目录为/var/www  我实际操作过程中似乎不可用，于是我就放在了html文件夹下。
 
@@ -64,17 +64,17 @@ sudo vi /etc/apache2/apache2.conf
 
 打开浏览器，输入http://IP/owncloud 
 
-{% img /imgs/owncloud/2.jpg%}
+{% img /images/owncloud/2.jpg%}
 
 电脑上装一下owncloud的客户端，然后操作比较简单
 
 看我的同步效果：
 
-{% img /imgs/owncloud/3.jpg%}
+{% img /images/owncloud/3.jpg%}
 
-{% img /imgs/owncloud/4.jpg%}
+{% img /images/owncloud/4.jpg%}
 
-{% img /imgs/owncloud/5.jpg%}
+{% img /images/owncloud/5.jpg%}
 
 这是局域网的访问，如果没公网ip，则可用ngrok内网转发来实现外网访问。
 

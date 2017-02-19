@@ -21,7 +21,7 @@ sudo apt-get install scim-pinyin
 sudo raspi-config
 ```
 
-{% img /imgs/baiduyun/1.jpg%}  
+{% img /images/baiduyun/1.jpg%}  
 
 
 然后选择第五项Internationalisation Options，change_locale，在Default locale for the system environment:中选择zh_CN.UTF-8
@@ -42,11 +42,11 @@ https://github.com/houtianze/bypy
 在浏览器中粘贴那个网址，再输入你的百度账号，
 会得到一串授权码。
 
-{% img /imgs/baiduyun/2.jpg%}  
+{% img /images/baiduyun/2.jpg%}  
 
 粘贴到刚才的终端上：
 
-{% img /imgs/baiduyun/3.jpg%}  
+{% img /images/baiduyun/3.jpg%}  
 
 好了，至此就搞定了~
 
@@ -79,9 +79,9 @@ bypy.py compare
 
 上传下，看一下我的百度云，有了！
   
-{% img /imgs/baiduyun/4.jpg%} 
+{% img /images/baiduyun/4.jpg%} 
 
 下载：
 
-{% img /imgs/baiduyun/5.jpg%} 
+{% img /images/baiduyun/5.jpg%} 
  

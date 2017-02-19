@@ -17,20 +17,20 @@ ngrok 就可以实现外网访问树莓派，ngrok的具体介绍和实现就不
 
 这里的token填写在 [Ngrok管理中心](http://www.ngrok.cc/index.php/Member/index.html) 的token
 
-{% img /imgs/ngrok/1.jpg%}
+{% img /images/ngrok/1.jpg%}
 
 
 我们需要在域名列表里面注册一下：
 
-{% img /imgs/ngrok/2.jpg%}
+{% img /images/ngrok/2.jpg%}
 
 我这里用的是自己的域名，还需要在dns解析 加一条记录
 
-{% img /imgs/ngrok/3.jpg%}
+{% img /images/ngrok/3.jpg%}
 
 不运行服务，直接输入域名，应该可以看到如下文字：
 
-{% img /imgs/ngrok/4.jpg%}
+{% img /images/ngrok/4.jpg%}
 
 说明这部分没有问题了~
 
@@ -41,18 +41,18 @@ ngrok 就可以实现外网访问树莓派，ngrok的具体介绍和实现就不
 
 这样表示运行成功：  
 
-{% img /imgs/ngrok/5.jpg%}
+{% img /images/ngrok/5.jpg%}
 
 打开浏览器，刷新一下刚才的界面：
 
-{% img /imgs/ngrok/6.jpg%}
+{% img /images/ngrok/6.jpg%}
 
 我们把上一次的owncloud也给加上
 ```
 test.wenjiehe.com/owncloud
 ```
 
-{% img /imgs/ngrok/7.jpg%}  
+{% img /images/ngrok/7.jpg%}  
 可以照常使用~~
 
 可能遇到 ####正在访问来自不信任域名的服务器,请联系你的系统管理员。如果你是系统管理员，配置config/config.php文件中参数"trusted_domain"
@@ -61,13 +61,13 @@ test.wenjiehe.com/owncloud
 sudo vi /var/www/html/owncloud/config/config.php
 ```  
 
-{% img /imgs/ngrok/8.jpg%}
+{% img /images/ngrok/8.jpg%}
 
 同时再提供下android版本的登录成功的截图：
 
-{% img /imgs/ngrok/9.jpg%}
+{% img /images/ngrok/9.jpg%}
 
-{% img /imgs/ngrok/10.jpg%}
+{% img /images/ngrok/10.jpg%}
 
 如果没有自己的域名也可以使用ngrok.cc提供的二级域名。
 
