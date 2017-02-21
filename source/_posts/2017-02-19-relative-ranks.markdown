@@ -4,7 +4,7 @@ title: "Relative Ranks问题的两种实现"
 date: 2017-02-19 16:17:02 +0800
 comments: true
 categories: 2017-02
-tags: [LeetCode,排序]
+tags: [LeetCode,冒泡排序,快速排序]
 ---
 本文的题目是一道基础题（506题），基于排序问题，借此熟悉一下快排和冒泡及其使用，同时也能很明显地看出快排的优势。<!--more-->
 
@@ -98,38 +98,38 @@ public class Solution {
         return result;
     }
     
-    	public static void quickSort(int[] nums,int numsTmp[],int start,int end){
+    public static void quickSort(int[] nums,int numsTmp[],int start,int end){
 
-		if(start<end){
-			int temp = nums[start];
-			int cc = numsTmp[start];//记录下起始位置中的值
-			int startTmp= start,endTmp = end;
-			while(start<end) {
-				while (start < end && nums[end] < temp) {
-					--end;
-				}
-				if(start < end) {
-				    //int Tmp = 0;
-				    //Tmp = numsTmp[start];
-				    numsTmp[start] = numsTmp[end];//把nums中更换时，同时也要更换numsTmp中
-				    //numsTmp[end] = Tmp;
-					nums[start++] = nums[end];
-				}
-
-				while (start < end && nums[start] >= temp) {
-					++start;
-				}
-				if(start < end) {
-				    numsTmp[end] = numsTmp[start];//把nums中更换时，同时也要更换numsTmp中
-                    nums[end--] = nums[start];
-                }
-
+	if(start<end){
+		int temp = nums[start];
+		int cc = numsTmp[start];//记录下起始位置中的值
+		int startTmp= start,endTmp = end;
+		while(start<end) {
+			while (start < end && nums[end] < temp) {
+				--end;
 			}
-			nums[start] = temp;//把最开始的值存在start位置，然后递归
-			numsTmp[start] = cc;//把numsTmp的目前start在的位置赋值成初始值，对应于快排算法
-			quickSort(nums,numsTmp,startTmp,start-1);
-			quickSort(nums,numsTmp,start+1,endTmp);
+			if(start < end) {
+			    //int Tmp = 0;
+			    //Tmp = numsTmp[start];
+			    numsTmp[start] = numsTmp[end];//把nums中更换时，同时也要更换numsTmp中
+			    //numsTmp[end] = Tmp;
+				nums[start++] = nums[end];
+			}
+
+			while (start < end && nums[start] >= temp) {
+				++start;
+			}
+			if(start < end) {
+			    numsTmp[end] = numsTmp[start];//把nums中更换时，同时也要更换numsTmp中
+                nums[end--] = nums[start];
+            }
+
 		}
+		nums[start] = temp;//把最开始的值存在start位置，然后递归
+		numsTmp[start] = cc;//把numsTmp的目前start在的位置赋值成初始值，对应于快排算法
+		quickSort(nums,numsTmp,startTmp,start-1);
+		quickSort(nums,numsTmp,start+1,endTmp);
+	}
 	}
 }
 ```
@@ -139,7 +139,7 @@ public class Solution {
 
 #### 实现时遇到的问题
 1.排序算法不够熟练，所以一开始用冒泡做。
-2.如何存储关系不明确，也就是思路不够明晰，其实只用把numsTMp中的内容做一个交换（冒泡）或者直接给新位置赋上旧位置的值（快排）即可。
+2.如何存储关系不明确，也就是思路不够明晰，其实只用把numsTmp中的内容做一个交换（冒泡）或者直接给新位置赋上旧位置的值（快排）即可。
 
 #### 两种排序的运行时间对比
 其实差距还是很明显的，快排大概能击败95%，冒泡则只有20%不到。
