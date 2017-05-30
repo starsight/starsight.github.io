@@ -96,7 +96,7 @@ public class hello {
 28-Apr-2017 20:24:15.998 SEVERE [RMI TCP Connection(3)-127.0.0.1] org.apache.catalina.core.StandardContext.startInternal Context [] startup failed due to previous errors
 ```
 
-这个问题可能出在lib加载的问题，解决办法是把lib文件夹放入WEB-INF目录下，同事添加为library。
+这个问题可能出在lib加载的问题，解决办法是把lib文件夹放入WEB-INF目录下，同时添加为library。
 问题解决的链接：[Intellij IDEA 15创建的spring mvc项目无法运行。](https://segmentfault.com/q/1010000004286568)  
 
 这是第一个问题。第二个问题发现重新运行后的程序老是不能更新，找了下解决办法：[intellij idea让资源文件自动更新 ](http://ljhzzyx.blog.163.com/blog/static/383803122014616959143/)
