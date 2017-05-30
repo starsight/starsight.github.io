@@ -45,7 +45,7 @@ tags: [android,FileProvider]
     ...
 </application>
 ```
-name的写法是固定的，不过如果你打算作为lib提供给别人可能要考虑冲突，可以继承这个类，然后不实现，以作区分。此说法来自参考链接三。
+name的写法是固定的，不过如果你打算作为lib提供给别人可能要考虑冲突，可以继承这个类，然后不实现，以作区分。此说法来自参考链接四。
 
 grantUriPermissions：申明为true，你才能获取临时共享权限
 
@@ -381,6 +381,7 @@ public class Button3Activity extends AppCompatActivity implements View.OnClickLi
                 break;
             }
             case SELECT_PIC_NOUGAT://版本>= 7.0
+				//获取图片的真实路径，再构建Content Uri
                 File imgUri = new File(GetImagePath.getPath(this, data.getData()));
                 Uri dataUri = FileProvider.getUriForFile
                         (this, "com.wenjiehe.android_study.fileprovider", imgUri);
@@ -444,6 +445,7 @@ public class Button3Activity extends AppCompatActivity implements View.OnClickLi
             intent.addFlags(FLAG_GRANT_WRITE_URI_PERMISSION);
 
         } else {
+		    //获取图片的真实路径，再构建Content Uri
             Uri outPutUri = Uri.fromFile(mCropFile);
             if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                 String url = GetImagePath.getPath(this, inputUri);//这个方法是处理4.4以上图片返回的Uri对象不同的处理方法
@@ -490,6 +492,7 @@ public class Button3Activity extends AppCompatActivity implements View.OnClickLi
 ##### 注意一：
 >仔细的看下这个方法：
 >```java
+//获取图片的真实路径，再构建Content Uri
 File imgUri = new File(GetImagePath.getPath(getContext(), data.getData()));
 Uri dataUri = FileProvider.getUriForFile(getActivity(), "com.renwohua.conch.fileprovider", imgUri);
 startPhotoZoom(dataUri);
@@ -509,3 +512,9 @@ Uri inputUri = FileProvider.getUriForFile(getActivity(), "com.renwohua.conch.fil
 >{% img /images/fileprovider/3.jpg%}
 >发现里面除了文档上面说的那五类中路径没还有一个就是root-path,也就是整个手机的根路径,那就好办了
 >{% img /images/fileprovider/4.jpg%}
+
+#### 参考链接
+[Android 7.0 适配 FileProvider相机 相册 裁剪的使用](http://www.jianshu.com/p/ba57444a7e69)
+[关于 Android 7.0 适配中 FileProvider 部分的总结](http://yifeng.studio/2017/05/03/android-7-0-compat-fileprovider/)
+[file:// scheme is now not allowed to be attached with Intent on targetSdkVersion 24 (Android Nougat). And here is the solution.](https://inthecheesefactory.com/blog/how-to-share-access-to-file-with-fileprovider-on-android-nougat/en)
+[Android 7.0 调取系统相机崩溃解决android.os.FileUriExposedException](http://www.cnblogs.com/liushilin/p/6602364.html)
