@@ -4,6 +4,34 @@
   
     
     <entry>
+      <title><![CDATA[LeetCode【82. Remove Duplicates from Sorted List II】]]></title>
+      <url>http://wenjiehe.com/2018/01/11/2018-01-11-Remove-Duplicates-from-Sorted-List/</url>
+      <content type="html"><![CDATA[<p>本文的题目是一道中等难度题（82题），之前没有注意删除头结点时的技巧。<a id="more"></a></p>
+<h4 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a>题目内容</h4><p>Given a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list.</p>
+<p>For example,<br>Given 1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5, return 1-&gt;2-&gt;5.<br>Given 1-&gt;1-&gt;1-&gt;2-&gt;3, return 2-&gt;3.</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>这道题在做了好久，开始希望先保证头结点唯一，但后来继续实现发现，保证头结点唯一和保证其他结点唯一方法类似。看各种判断语句感觉这代码不能这么写啊！<br>然后去百度，看到有人用添加头结点的方式构造。学了这一手，然后自己写了代码。代码有什么不懂的可以留言讨论。</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** </span></div><div class="line">* Definition for singly-linked list. </div><div class="line">* public class ListNode &#123; </div><div class="line">*     int val; </div><div class="line">*     ListNode next; </div><div class="line">*     ListNode(int x) &#123; val = x; &#125; </div><div class="line">* &#125; </div><div class="line">*/  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;  </div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">deleteDuplicates</span><span class="params">(ListNode head)</span> </span>&#123;  </div><div class="line">        <span class="keyword">if</span>(head==<span class="keyword">null</span>||head.next==<span class="keyword">null</span>)  </div><div class="line">            <span class="keyword">return</span> head;  </div><div class="line">      </div><div class="line">        ListNode cur =head;  </div><div class="line">        ListNode newHead =<span class="keyword">new</span> ListNode(head.next.val);<span class="comment">//小技巧，第一个结点，让左边等于右边咯 </span></div><div class="line">        ListNode pre =newHead;<span class="comment">//当前结点的前一个结点  </span></div><div class="line">        ListNode preSuccess =newHead;<span class="comment">//前一个唯一结点  </span></div><div class="line">        pre.next =head;<span class="comment">//连接虚拟头结点到链表  </span></div><div class="line">          </div><div class="line">        <span class="keyword">while</span>(cur!=<span class="keyword">null</span>&amp;&amp;cur.next!=<span class="keyword">null</span>)&#123;  </div><div class="line">            <span class="keyword">if</span>(pre.val==cur.val||cur.val==cur.next.val)&#123;  </div><div class="line">                pre =cur;  </div><div class="line">                cur =cur.next;  </div><div class="line">                <span class="keyword">if</span>(cur!=<span class="keyword">null</span>&amp;&amp;cur.next==<span class="keyword">null</span>)&#123;<span class="comment">//只剩下最后一个（如果倒数第二个已经加入链表，那么最后一个也默认加入了）  </span></div><div class="line">                    <span class="keyword">if</span>(pre.val!=cur.val)<span class="comment">//pre和preSuccess不一定相等哦 preSuccess不一定连接着cur  </span></div><div class="line">                        preSuccess.next =cur;  </div><div class="line">                    <span class="keyword">else</span>  </div><div class="line">                        preSuccess.next=<span class="keyword">null</span>;  </div><div class="line">                &#125;  </div><div class="line">            &#125;<span class="keyword">else</span>&#123;  </div><div class="line">                preSuccess.next =cur;  </div><div class="line">                preSuccess =cur;  </div><div class="line">                pre =cur;  </div><div class="line">                cur =cur.next;           </div><div class="line">            &#125;     </div><div class="line">        &#125;  </div><div class="line">  </div><div class="line">        <span class="keyword">return</span> newHead.next;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p>原题链接：<a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/description/" target="_blank" rel="external">82. Remove Duplicates from Sorted List II</a><br>参考思路：<a href="http://blog.csdn.net/linhuanmars/article/details/24389429" target="_blank" rel="external">Remove Duplicates from Sorted List II – LeetCode</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 2018-01 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+            <tag> 链表 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android7.0完美适配——FileProvider拍照裁剪全解析]]></title>
       <url>http://wenjiehe.com/2017/05/30/2017-05-30-android-fileprovider/</url>
       <content type="html"><![CDATA[<p>在做android7.0的适配时，发现拍照裁剪图片等功能莫名其妙地崩溃了。通过观察控制台的崩溃记录，原因很明显，file:// 不被允许作为一个附加的 Uri 的意图，否则会抛出 FileUriExposedException，接下来就依次适配之。<a id="more"></a></p>
