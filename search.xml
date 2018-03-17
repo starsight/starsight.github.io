@@ -4,6 +4,30 @@
   
     
     <entry>
+      <title><![CDATA[Activity总结回顾]]></title>
+      <url>http://wenjiehe.com/2018/03/16/android-activity-structure/</url>
+      <content type="html"><![CDATA[<p>####总结一下Activity的内容，欢迎补充，以后会添加启动过程。<a id="more"></a></p>
+<img src="/images/android/activity/activity-structure.png">
+]]></content>
+      
+        <categories>
+            
+            <category> 2018-03 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> activity </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[LeetCode【82. Remove Duplicates from Sorted List II】]]></title>
       <url>http://wenjiehe.com/2018/01/11/2018-01-11-Remove-Duplicates-from-Sorted-List/</url>
       <content type="html"><![CDATA[<p>本文的题目是一道中等难度题（82题），之前没有注意删除头结点时的技巧。<a id="more"></a></p>
