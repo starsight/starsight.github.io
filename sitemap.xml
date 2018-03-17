@@ -2,9 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://wenjiehe.com/2018/03/17/android-fragment-structure/</loc>
+    
+    <lastmod>2018-03-17T06:51:02.678Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenjiehe.com/2018/03/17/android-service-structure/</loc>
+    
+    <lastmod>2018-03-17T06:50:54.005Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wenjiehe.com/2018/03/16/android-activity-structure/</loc>
     
-    <lastmod>2018-03-17T06:35:52.740Z</lastmod>
+    <lastmod>2018-03-17T06:47:43.404Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenjiehe.com/2018/03/15/ali-interview-test/</loc>
+    
+    <lastmod>2018-03-17T06:45:15.627Z</lastmod>
     
   </url>
   
@@ -30,14 +51,14 @@
   </url>
   
   <url>
-    <loc>http://wenjiehe.com/categories/index.html</loc>
+    <loc>http://wenjiehe.com/2017/05/30/2017-05-30-android-fileprovider/</loc>
     
     <lastmod>2017-07-10T14:19:15.277Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wenjiehe.com/2017/05/30/2017-05-30-android-fileprovider/</loc>
+    <loc>http://wenjiehe.com/categories/index.html</loc>
     
     <lastmod>2017-07-10T14:19:15.277Z</lastmod>
     
@@ -135,14 +156,14 @@
   </url>
   
   <url>
-    <loc>http://wenjiehe.com/2016/04/20/2016-04-20-raspberry-dilatation-and-samba/</loc>
+    <loc>http://wenjiehe.com/2016/04/21/2016-04-21-raspberry-wifi-problems/</loc>
     
     <lastmod>2017-07-10T14:19:15.267Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wenjiehe.com/2016/04/21/2016-04-21-raspberry-wifi-problems/</loc>
+    <loc>http://wenjiehe.com/2016/04/20/2016-04-20-raspberry-dilatation-and-samba/</loc>
     
     <lastmod>2017-07-10T14:19:15.267Z</lastmod>
     
@@ -191,14 +212,14 @@
   </url>
   
   <url>
-    <loc>http://wenjiehe.com/2015/01/23/2015-01-23-end-and-go-on/</loc>
+    <loc>http://wenjiehe.com/2015/01/09/2015-01-09-everyone-has-different-aims/</loc>
     
     <lastmod>2017-07-10T14:19:15.263Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wenjiehe.com/2015/01/09/2015-01-09-everyone-has-different-aims/</loc>
+    <loc>http://wenjiehe.com/2015/01/23/2015-01-23-end-and-go-on/</loc>
     
     <lastmod>2017-07-10T14:19:15.263Z</lastmod>
     

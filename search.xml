@@ -4,10 +4,58 @@
   
     
     <entry>
+      <title><![CDATA[Service总结回顾]]></title>
+      <url>http://wenjiehe.com/2018/03/17/android-service-structure/</url>
+      <content type="html"><![CDATA[<p>总结一下Service的内容，欢迎补充。Binder的内容单独提出来。<a id="more"></a></p>
+<img src="/images/android/service/Service-structure.png">
+]]></content>
+      
+        <categories>
+            
+            <category> 2018-03 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> service </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Fragment总结回顾]]></title>
+      <url>http://wenjiehe.com/2018/03/17/android-fragment-structure/</url>
+      <content type="html"><![CDATA[<p>总结一下Fragment的内容，欢迎补充。<a id="more"></a></p>
+<img src="/images/android/fragment/Fragment-structure.png">
+]]></content>
+      
+        <categories>
+            
+            <category> 2018-03 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> fragment </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Activity总结回顾]]></title>
       <url>http://wenjiehe.com/2018/03/16/android-activity-structure/</url>
-      <content type="html"><![CDATA[<p>####总结一下Activity的内容，欢迎补充，以后会添加启动过程。<a id="more"></a></p>
-<img src="/images/android/activity/activity-structure.png">
+      <content type="html"><![CDATA[<p>总结一下Activity的内容，欢迎补充，以后会添加启动过程。<a id="more"></a></p>
+<img src="/images/android/activity/Activity-structure.png">
 ]]></content>
       
         <categories>
@@ -22,6 +70,33 @@
             <tag> android </tag>
             
             <tag> activity </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[阿里笔试测试题（零售通App中使用消息数的红点引导用户点击）]]></title>
+      <url>http://wenjiehe.com/2018/03/15/ali-interview-test/</url>
+      <content type="html"><![CDATA[<p>题目如下<a id="more"></a></p>
+<img src="/images/interview/1.png">
+<img src="/images/interview/2.png">
+<p>这道题当时没做出来，一个是因为时间短，一个是因为思路太不成熟。<br>构建这个树比较麻烦，数据结构选好了其实就比较简单。<br>大致要求就是求得一级节点消息数的最大值。<br>构建这棵树，采用HashMap<string,node>这样可以快速根据字符串找到对应地Node，同时拿一个ArrayList<node>存储下根节点连接的一级节点，便于后期求一级节点。</node></string,node></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">choiceRedDot</span> </span>&#123;  </div><div class="line">    <span class="comment">/*** </span></div><div class="line">r-&gt;a,r-&gt;b,r-&gt;c,a-&gt;e,b-&gt;g,c-&gt;g,c-&gt;h,g-&gt;f </div><div class="line">e:15,f:10,h:6 </div><div class="line">     */  </div><div class="line">  </div><div class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;  </div><div class="line">        String label;  </div><div class="line">        <span class="keyword">int</span> val=<span class="number">0</span>;  </div><div class="line">        ArrayList&lt;Node&gt; next;  </div><div class="line">        Node()&#123;  </div><div class="line">            next = <span class="keyword">new</span> ArrayList&lt;&gt;();  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    <span class="function"><span class="keyword">static</span> String <span class="title">choiceRedDot</span><span class="params">(String nodePath, String nodeCount)</span> </span>&#123;  </div><div class="line">        String[] link = nodePath.split(<span class="string">","</span>);  </div><div class="line">        String[] count = nodeCount.split(<span class="string">","</span>);  </div><div class="line">  </div><div class="line">        String[] temp;  </div><div class="line">        <span class="comment">//Node root =new Node();  </span></div><div class="line">        Node node1 =<span class="keyword">null</span>;  </div><div class="line">        Node node2 =<span class="keyword">null</span>;  </div><div class="line">        HashMap&lt;String,Node&gt; hashMap = <span class="keyword">new</span> HashMap&lt;&gt;();  </div><div class="line">        ArrayList&lt;Node&gt; list =<span class="keyword">new</span> ArrayList&lt;&gt;();  </div><div class="line">        <span class="keyword">for</span> (String aLink : link) &#123;  </div><div class="line">            temp = aLink.split(<span class="string">"-&gt;"</span>);  </div><div class="line">            <span class="keyword">if</span> (hashMap.containsKey(temp[<span class="number">0</span>])) &#123;  </div><div class="line">                node1 = hashMap.get(temp[<span class="number">0</span>]);  </div><div class="line">            &#125; <span class="keyword">else</span> &#123;  </div><div class="line">                node1 = <span class="keyword">new</span> Node();  </div><div class="line">                node1.label =temp[<span class="number">0</span>];  </div><div class="line">                hashMap.put(temp[<span class="number">0</span>], node1);  </div><div class="line">            &#125;  </div><div class="line">  </div><div class="line">            <span class="keyword">if</span> (hashMap.containsKey(temp[<span class="number">1</span>])) &#123;  </div><div class="line">                node2 = hashMap.get(temp[<span class="number">1</span>]);  </div><div class="line">            &#125; <span class="keyword">else</span> &#123;  </div><div class="line">                node2 = <span class="keyword">new</span> Node();  </div><div class="line">                node2.label =temp[<span class="number">1</span>];  </div><div class="line">                hashMap.put(temp[<span class="number">1</span>], node2);  </div><div class="line">            &#125;  </div><div class="line">  </div><div class="line">            node1.next.add(node2);  </div><div class="line">  </div><div class="line">            <span class="keyword">if</span> (temp[<span class="number">0</span>].equals(<span class="string">"r"</span>)) &#123;  </div><div class="line">                list.add(node2);  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">  </div><div class="line">        <span class="keyword">for</span>(String cCount :count)&#123;  </div><div class="line">            temp = cCount.split(<span class="string">":"</span>);  </div><div class="line">            node1 = hashMap.get(temp[<span class="number">0</span>]);  </div><div class="line">            node1.val = Integer.valueOf(temp[<span class="number">1</span>]);  </div><div class="line">        &#125;  </div><div class="line">  </div><div class="line">        <span class="keyword">int</span> max =-<span class="number">1</span>;  </div><div class="line">  </div><div class="line">        <span class="keyword">for</span>(Node node:list)&#123;  </div><div class="line">            <span class="keyword">int</span> sum =calculate(node);  </div><div class="line">            <span class="keyword">if</span>(max&lt;sum)&#123;  </div><div class="line">                max = sum;  </div><div class="line">                node1 =node;  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">return</span> node1.label;  </div><div class="line">  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">calculate</span><span class="params">(Node node)</span></span>&#123;  </div><div class="line">        ArrayList&lt;Node&gt; list = node.next;  </div><div class="line">  </div><div class="line">        <span class="keyword">if</span>(node.val!=<span class="number">0</span>)  </div><div class="line">            <span class="keyword">return</span> node.val;  </div><div class="line">  </div><div class="line">        <span class="keyword">int</span> sum =node.val;  </div><div class="line">        <span class="keyword">for</span> (Node n: list) &#123;  </div><div class="line">            sum+=calculate(n);  </div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">return</span> sum;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;  </div><div class="line">        Scanner in = <span class="keyword">new</span> Scanner(System.in);  </div><div class="line">        String res;  </div><div class="line">  </div><div class="line">        String _nodePath;  </div><div class="line">        <span class="keyword">try</span> &#123;  </div><div class="line">            _nodePath = in.nextLine();  </div><div class="line">  </div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </div><div class="line">            _nodePath = <span class="keyword">null</span>;  </div><div class="line">        &#125;  </div><div class="line">  </div><div class="line">        String _nodeCount;  </div><div class="line">        <span class="keyword">try</span> &#123;  </div><div class="line">            _nodeCount = in.nextLine();  </div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </div><div class="line">            _nodeCount = <span class="keyword">null</span>;  </div><div class="line">        &#125;  </div><div class="line">  </div><div class="line">        res = choiceRedDot(_nodePath, _nodeCount);  </div><div class="line">        System.out.println(res);  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>完整代码如上，只经过基本的case测试，大型case效率估计有问题，calculate做了一些避免重复计算的优化，但感觉这方案肯定不是最优设计。</p>
+<p>欢迎大家交流~</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 2018-03 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 笔试题 </tag>
             
         </tags>
         
