@@ -4,16 +4,38 @@
 
     
   <url>
-    <loc>http://wenjiehe.com/2018/03/17/android-fragment-structure/</loc>
-    <lastmod>2018-03-17T06:51:02.678Z</lastmod>
+    <loc>http://wenjiehe.com/2018/03/17/android-broadcastReceiver-structure/</loc>
+    <lastmod>2018-03-17T13:39:53.983Z</lastmod>
     <data>
         <display>
-        <title>Fragment总结回顾</title>
-        <pubTime>2018-03-17T03:48:09.000Z</pubTime>
+        <title>BroadcastReceiver总结回顾</title>
+        <pubTime>2018-03-17T13:37:44.000Z</pubTime>
         
         <tag>android</tag>
          
-        <tag>fragment</tag>
+        <tag>BroadcastReceiver</tag>
+         
+         
+           
+             
+              <breadCrumb title="2018-03" url="http://wenjiehe.com/categories/2018-03/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2018/03/17/android-binder-structure/</loc>
+    <lastmod>2018-03-17T13:39:40.854Z</lastmod>
+    <data>
+        <display>
+        <title>Binder总结回顾</title>
+        <pubTime>2018-03-17T12:18:12.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>Binder</tag>
          
          
            
@@ -27,7 +49,7 @@
     
   <url>
     <loc>http://wenjiehe.com/2018/03/17/android-service-structure/</loc>
-    <lastmod>2018-03-17T06:50:54.005Z</lastmod>
+    <lastmod>2018-03-17T13:37:42.318Z</lastmod>
     <data>
         <display>
         <title>Service总结回顾</title>
@@ -35,7 +57,29 @@
         
         <tag>android</tag>
          
-        <tag>service</tag>
+        <tag>Service</tag>
+         
+         
+           
+             
+              <breadCrumb title="2018-03" url="http://wenjiehe.com/categories/2018-03/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2018/03/17/android-fragment-structure/</loc>
+    <lastmod>2018-03-17T06:51:02.678Z</lastmod>
+    <data>
+        <display>
+        <title>Fragment总结回顾</title>
+        <pubTime>2018-03-17T03:48:09.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>fragment</tag>
          
          
            
@@ -203,6 +247,26 @@
 
     
   <url>
+    <loc>http://wenjiehe.com/2016/10/15/2016-10-15-xingji-2/</loc>
+    <lastmod>2017-07-10T14:19:15.272Z</lastmod>
+    <data>
+        <display>
+        <title>行迹V0.6版本概述总结</title>
+        <pubTime>2016-10-15T02:42:02.000Z</pubTime>
+        
+        <tag>行迹</tag>
+         
+         
+           
+             
+              <breadCrumb title="2016-10" url="http://wenjiehe.com/categories/2016-10/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://wenjiehe.com/2017/01/30/2017-01-30-hexo-theme-sync/</loc>
     <lastmod>2017-07-10T14:19:15.272Z</lastmod>
     <data>
@@ -223,19 +287,19 @@
 
     
   <url>
-    <loc>http://wenjiehe.com/2016/10/15/2016-10-15-xingji-2/</loc>
-    <lastmod>2017-07-10T14:19:15.272Z</lastmod>
+    <loc>http://wenjiehe.com/2016/08/18/2016-08-18-xingji-1/</loc>
+    <lastmod>2017-07-10T14:19:15.271Z</lastmod>
     <data>
         <display>
-        <title>行迹V0.6版本概述总结</title>
-        <pubTime>2016-10-15T02:42:02.000Z</pubTime>
+        <title>行迹开篇</title>
+        <pubTime>2016-08-18T14:15:36.000Z</pubTime>
         
         <tag>行迹</tag>
          
          
            
              
-              <breadCrumb title="2016-10" url="http://wenjiehe.com/categories/2016-10/"/>
+              <breadCrumb title="2016-08" url="http://wenjiehe.com/categories/2016-08/"/>
           
         </display>
     </data>
@@ -269,19 +333,21 @@
 
     
   <url>
-    <loc>http://wenjiehe.com/2016/08/18/2016-08-18-xingji-1/</loc>
-    <lastmod>2017-07-10T14:19:15.271Z</lastmod>
+    <loc>http://wenjiehe.com/2016/04/30/2016-04-30-raspberry-opencv-install/</loc>
+    <lastmod>2017-07-10T14:19:15.270Z</lastmod>
     <data>
         <display>
-        <title>行迹开篇</title>
-        <pubTime>2016-08-18T14:15:36.000Z</pubTime>
+        <title>Raspberry Pi 3 编译opencv</title>
+        <pubTime>2016-04-30T02:18:51.000Z</pubTime>
         
-        <tag>行迹</tag>
+        <tag>树莓派</tag>
+         
+        <tag>编译opencv</tag>
          
          
            
              
-              <breadCrumb title="2016-08" url="http://wenjiehe.com/categories/2016-08/"/>
+              <breadCrumb title="2016-04" url="http://wenjiehe.com/categories/2016-04/"/>
           
         </display>
     </data>
@@ -301,28 +367,6 @@
         <tag>云服务</tag>
          
         <tag>owncloud</tag>
-         
-         
-           
-             
-              <breadCrumb title="2016-04" url="http://wenjiehe.com/categories/2016-04/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://wenjiehe.com/2016/04/30/2016-04-30-raspberry-opencv-install/</loc>
-    <lastmod>2017-07-10T14:19:15.270Z</lastmod>
-    <data>
-        <display>
-        <title>Raspberry Pi 3 编译opencv</title>
-        <pubTime>2016-04-30T02:18:51.000Z</pubTime>
-        
-        <tag>树莓派</tag>
-         
-        <tag>编译opencv</tag>
          
          
            
@@ -383,32 +427,6 @@
 
     
   <url>
-    <loc>http://wenjiehe.com/2016/04/23/2016-04-23-raspberry-dnsmasq/</loc>
-    <lastmod>2017-07-10T14:19:15.268Z</lastmod>
-    <data>
-        <display>
-        <title>Raspberry Pi 3 搭建本地DNS服务器</title>
-        <pubTime>2016-04-23T13:39:04.000Z</pubTime>
-        
-        <tag>树莓派</tag>
-         
-        <tag>dnsmasq</tag>
-         
-        <tag>dns</tag>
-         
-        <tag>局域网缓存</tag>
-         
-         
-           
-             
-              <breadCrumb title="2016-04" url="http://wenjiehe.com/categories/2016-04/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://wenjiehe.com/2016/04/22/2016-04-22-raspberry-baiduyun/</loc>
     <lastmod>2017-07-10T14:19:15.268Z</lastmod>
     <data>
@@ -433,16 +451,20 @@
 
     
   <url>
-    <loc>http://wenjiehe.com/2016/04/21/2016-04-21-raspberry-wifi-problems/</loc>
-    <lastmod>2017-07-10T14:19:15.267Z</lastmod>
+    <loc>http://wenjiehe.com/2016/04/23/2016-04-23-raspberry-dnsmasq/</loc>
+    <lastmod>2017-07-10T14:19:15.268Z</lastmod>
     <data>
         <display>
-        <title>Raspberry Pi 3 wifi问题</title>
-        <pubTime>2016-04-21T11:59:09.000Z</pubTime>
+        <title>Raspberry Pi 3 搭建本地DNS服务器</title>
+        <pubTime>2016-04-23T13:39:04.000Z</pubTime>
         
         <tag>树莓派</tag>
          
-        <tag>wifi</tag>
+        <tag>dnsmasq</tag>
+         
+        <tag>dns</tag>
+         
+        <tag>局域网缓存</tag>
          
          
            
@@ -479,6 +501,28 @@
 
     
   <url>
+    <loc>http://wenjiehe.com/2016/04/21/2016-04-21-raspberry-wifi-problems/</loc>
+    <lastmod>2017-07-10T14:19:15.267Z</lastmod>
+    <data>
+        <display>
+        <title>Raspberry Pi 3 wifi问题</title>
+        <pubTime>2016-04-21T11:59:09.000Z</pubTime>
+        
+        <tag>树莓派</tag>
+         
+        <tag>wifi</tag>
+         
+         
+           
+             
+              <breadCrumb title="2016-04" url="http://wenjiehe.com/categories/2016-04/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://wenjiehe.com/2015/11/27/2015-11-27-wechat-article-1/</loc>
     <lastmod>2017-07-10T14:19:15.266Z</lastmod>
     <data>
@@ -492,6 +536,26 @@
            
              
               <breadCrumb title="2015-11" url="http://wenjiehe.com/categories/2015-11/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2015/04/30/2015-04-30-i-am-always-busy/</loc>
+    <lastmod>2017-07-10T14:19:15.265Z</lastmod>
+    <data>
+        <display>
+        <title>大学，为什么我一直这么忙？</title>
+        <pubTime>2015-04-30T05:13:20.000Z</pubTime>
+        
+        <tag>思绪</tag>
+         
+         
+           
+             
+              <breadCrumb title="2015-04" url="http://wenjiehe.com/categories/2015-04/"/>
           
         </display>
     </data>
@@ -539,19 +603,19 @@
 
     
   <url>
-    <loc>http://wenjiehe.com/2015/04/30/2015-04-30-i-am-always-busy/</loc>
-    <lastmod>2017-07-10T14:19:15.265Z</lastmod>
+    <loc>http://wenjiehe.com/2015/02/08/2015-02-08-thinking-on-the-way/</loc>
+    <lastmod>2017-07-10T14:19:15.264Z</lastmod>
     <data>
         <display>
-        <title>大学，为什么我一直这么忙？</title>
-        <pubTime>2015-04-30T05:13:20.000Z</pubTime>
+        <title>走在归路上的一点思考</title>
+        <pubTime>2015-02-08T13:16:24.000Z</pubTime>
         
         <tag>思绪</tag>
          
          
            
              
-              <breadCrumb title="2015-04" url="http://wenjiehe.com/categories/2015-04/"/>
+              <breadCrumb title="2015-02" url="http://wenjiehe.com/categories/2015-02/"/>
           
         </display>
     </data>
@@ -579,32 +643,12 @@
 
     
   <url>
-    <loc>http://wenjiehe.com/2015/02/08/2015-02-08-thinking-on-the-way/</loc>
-    <lastmod>2017-07-10T14:19:15.264Z</lastmod>
-    <data>
-        <display>
-        <title>走在归路上的一点思考</title>
-        <pubTime>2015-02-08T13:16:24.000Z</pubTime>
-        
-        <tag>思绪</tag>
-         
-         
-           
-             
-              <breadCrumb title="2015-02" url="http://wenjiehe.com/categories/2015-02/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://wenjiehe.com/2015/01/09/2015-01-09-everyone-has-different-aims/</loc>
+    <loc>http://wenjiehe.com/2015/01/23/2015-01-23-end-and-go-on/</loc>
     <lastmod>2017-07-10T14:19:15.263Z</lastmod>
     <data>
         <display>
-        <title>人各有志，从来就不是你堕落的理由</title>
-        <pubTime>2015-01-09T14:57:29.000Z</pubTime>
+        <title>大三的结束与开始</title>
+        <pubTime>2015-01-23T05:58:12.000Z</pubTime>
         
         <tag>思绪</tag>
          
@@ -619,12 +663,12 @@
 
     
   <url>
-    <loc>http://wenjiehe.com/2015/01/23/2015-01-23-end-and-go-on/</loc>
+    <loc>http://wenjiehe.com/2015/01/09/2015-01-09-everyone-has-different-aims/</loc>
     <lastmod>2017-07-10T14:19:15.263Z</lastmod>
     <data>
         <display>
-        <title>大三的结束与开始</title>
-        <pubTime>2015-01-23T05:58:12.000Z</pubTime>
+        <title>人各有志，从来就不是你堕落的理由</title>
+        <pubTime>2015-01-09T14:57:29.000Z</pubTime>
         
         <tag>思绪</tag>
          

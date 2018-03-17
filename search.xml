@@ -4,6 +4,54 @@
   
     
     <entry>
+      <title><![CDATA[BroadcastReceiver总结回顾]]></title>
+      <url>http://wenjiehe.com/2018/03/17/android-broadcastReceiver-structure/</url>
+      <content type="html"><![CDATA[<p>总结一下BroadcastReceiver的内容，欢迎补充。<a id="more"></a></p>
+<img src="/images/android/broadcastreceiver/BroadcastReceiver-structure.png">
+]]></content>
+      
+        <categories>
+            
+            <category> 2018-03 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> BroadcastReceiver </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Binder总结回顾]]></title>
+      <url>http://wenjiehe.com/2018/03/17/android-binder-structure/</url>
+      <content type="html"><![CDATA[<p>总结一下Binder的内容，欢迎补充。<a id="more"></a></p>
+<img src="/images/android/binder/Binder-structure.png">
+]]></content>
+      
+        <categories>
+            
+            <category> 2018-03 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> Binder </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Service总结回顾]]></title>
       <url>http://wenjiehe.com/2018/03/17/android-service-structure/</url>
       <content type="html"><![CDATA[<p>总结一下Service的内容，欢迎补充。Binder的内容单独提出来。<a id="more"></a></p>
@@ -21,7 +69,7 @@
             
             <tag> android </tag>
             
-            <tag> service </tag>
+            <tag> Service </tag>
             
         </tags>
         
