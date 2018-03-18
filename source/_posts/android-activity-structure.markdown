@@ -6,7 +6,7 @@ comments: true
 categories: 2018-03
 tags: [android,activity]
 ---
-总结一下Activity的内容，欢迎补充，以后会添加启动过程。<!--more-->
+总结一下Activity的内容，建议保存图片查看，欢迎补充，以后会添加启动过程。<!--more-->
 
-{% img /images/android/activity/Activity-structure.png%}
+{% img /images/android/Activity-structure.png%}
 
