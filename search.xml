@@ -4,10 +4,37 @@
   
     
     <entry>
+      <title><![CDATA[二进制中0的个数]]></title>
+      <url>http://wenjiehe.com/2018/03/18/coding-interview-zero-number-of-second-session/</url>
+      <content type="html"><![CDATA[<p>师兄的一道网易面试题<br>问题：求二进制0的个数，要求从第一位为1往后统计个数?</p>
+<h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><p>主要考虑正负数情况。<a id="more"></a><br>对于正数，在不为0的情况下，计算其二进制，容易得0的个数。<br>对于负数，因为已知第一位是1的，所以不用担心有高位0，直接取1，然后依次左移，看&amp;原值是不是0。停止条件是这个数为0。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">numberOf0</span><span class="params">(<span class="keyword">int</span> num)</span></span>&#123;  </div><div class="line">    <span class="keyword">int</span> count=<span class="number">0</span>;  </div><div class="line">    <span class="keyword">if</span>(num&lt;<span class="number">0</span>)&#123;  </div><div class="line">        <span class="keyword">int</span> i=<span class="number">1</span>;  </div><div class="line">        <span class="keyword">while</span>(i!=<span class="number">0</span>)&#123;  </div><div class="line">            <span class="keyword">if</span>((i&amp;num)==<span class="number">0</span>)&#123;  </div><div class="line">                count++;  </div><div class="line">            &#125;  </div><div class="line">            i=i&lt;&lt;<span class="number">1</span>;  </div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">return</span>  count;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    <span class="keyword">while</span>(num!=<span class="number">0</span>)&#123;  </div><div class="line">        <span class="keyword">int</span> mod = num%<span class="number">2</span>;  </div><div class="line">        <span class="keyword">if</span>(mod==<span class="number">0</span>)  </div><div class="line">            count++;  </div><div class="line">        num = num/<span class="number">2</span>;  </div><div class="line">    &#125;  </div><div class="line">    <span class="keyword">return</span> count;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h4><p>另一种技巧性强的方法。从低位开始，遇到0则正常计数，遇到1则需要判断，在更高位是否还有1，没有则可以跳出循环。</p>
+<p>判断方法在于：</p>
+<p>先记录左移次数，在当前次数下的次（第二）大值，如左移3次，为0b1000，次大值为0b0111；</p>
+<p>把原数当前为1的位变成0，再比较这个数和次大值，如果高位没有1，则这个数不会超过次大值，这时就可以跳出循环了，注意绝对值。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">NumberOf0</span><span class="params">(<span class="keyword">int</span> num)</span></span>&#123;  </div><div class="line">    <span class="keyword">int</span> count =<span class="number">0</span>;  </div><div class="line">  </div><div class="line">    <span class="keyword">int</span> flag0 = <span class="number">0</span>;  </div><div class="line">    <span class="keyword">int</span> flag1 = <span class="number">1</span>;  </div><div class="line">  </div><div class="line">    <span class="keyword">int</span> movecount =<span class="number">0</span>;  </div><div class="line">    <span class="keyword">int</span> max =<span class="number">0</span>;  </div><div class="line">  </div><div class="line">    <span class="keyword">for</span>(;;)&#123;  </div><div class="line">        <span class="keyword">if</span>((num&amp;flag1)==<span class="number">0</span>)&#123;  </div><div class="line">            count++;  </div><div class="line">        &#125;<span class="keyword">else</span>&#123;  </div><div class="line">            flag0 =~flag1;  </div><div class="line">            max = <span class="number">1</span>&lt;&lt;movecount;<span class="comment">//构造次大值  </span></div><div class="line">            max--;  </div><div class="line">            <span class="keyword">if</span>(Math.abs(num&amp;flag0)&lt;=max)<span class="comment">//不要忘了绝对值  </span></div><div class="line">                <span class="keyword">break</span>;  </div><div class="line">        &#125;  </div><div class="line">        flag1 = flag1&lt;&lt;<span class="number">1</span>;  </div><div class="line">        movecount++;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    <span class="keyword">return</span> count;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 2018-03 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 剑指Offer </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[BroadcastReceiver总结回顾]]></title>
       <url>http://wenjiehe.com/2018/03/17/android-broadcastReceiver-structure/</url>
-      <content type="html"><![CDATA[<p>总结一下BroadcastReceiver的内容，欢迎补充。<a id="more"></a></p>
-<img src="/images/android/broadcastreceiver/BroadcastReceiver-structure.png">
+      <content type="html"><![CDATA[<p>总结一下BroadcastReceiver的内容，建议保存图片查看，欢迎补充。<a id="more"></a></p>
+<img src="/images/android/BroadcastReceiver-structure.png">
 ]]></content>
       
         <categories>
@@ -30,8 +57,8 @@
     <entry>
       <title><![CDATA[Binder总结回顾]]></title>
       <url>http://wenjiehe.com/2018/03/17/android-binder-structure/</url>
-      <content type="html"><![CDATA[<p>总结一下Binder的内容，欢迎补充。<a id="more"></a></p>
-<img src="/images/android/binder/Binder-structure.png">
+      <content type="html"><![CDATA[<p>总结一下Binder的内容，建议保存图片查看，欢迎补充。<a id="more"></a></p>
+<img src="/images/android/Binder-structure.png">
 ]]></content>
       
         <categories>
@@ -54,8 +81,8 @@
     <entry>
       <title><![CDATA[Service总结回顾]]></title>
       <url>http://wenjiehe.com/2018/03/17/android-service-structure/</url>
-      <content type="html"><![CDATA[<p>总结一下Service的内容，欢迎补充。Binder的内容单独提出来。<a id="more"></a></p>
-<img src="/images/android/service/Service-structure.png">
+      <content type="html"><![CDATA[<p>总结一下Service的内容，建议保存图片查看，欢迎补充。Binder的内容单独提出来。<a id="more"></a></p>
+<img src="/images/android/Service-structure.png">
 ]]></content>
       
         <categories>
@@ -78,8 +105,8 @@
     <entry>
       <title><![CDATA[Fragment总结回顾]]></title>
       <url>http://wenjiehe.com/2018/03/17/android-fragment-structure/</url>
-      <content type="html"><![CDATA[<p>总结一下Fragment的内容，欢迎补充。<a id="more"></a></p>
-<img src="/images/android/fragment/Fragment-structure.png">
+      <content type="html"><![CDATA[<p>总结一下Fragment的内容，建议保存图片查看，欢迎补充。<a id="more"></a></p>
+<img src="/images/android/Fragment-structure.png">
 ]]></content>
       
         <categories>
@@ -102,8 +129,8 @@
     <entry>
       <title><![CDATA[Activity总结回顾]]></title>
       <url>http://wenjiehe.com/2018/03/16/android-activity-structure/</url>
-      <content type="html"><![CDATA[<p>总结一下Activity的内容，欢迎补充，以后会添加启动过程。<a id="more"></a></p>
-<img src="/images/android/activity/Activity-structure.png">
+      <content type="html"><![CDATA[<p>总结一下Activity的内容，建议保存图片查看，欢迎补充，以后会添加启动过程。<a id="more"></a></p>
+<img src="/images/android/Activity-structure.png">
 ]]></content>
       
         <categories>
@@ -825,9 +852,9 @@ CALL_BACK = <span class="string">'https://api.weibo.com/oauth2/default.html'</sp
         
         <tags>
             
-            <tag> 树莓派 </tag>
-            
             <tag> 中文显示输入 </tag>
+            
+            <tag> 树莓派 </tag>
             
             <tag> 百度云 </tag>
             
