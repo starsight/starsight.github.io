@@ -4,6 +4,80 @@
   
     
     <entry>
+      <title><![CDATA[【Android面试特辑】Android线程与线程池总结回顾]]></title>
+      <url>http://wenjiehe.com/2018/03/22/android-thread-thradpool-structure/</url>
+      <content type="html"><![CDATA[<p>总结一下Android中Thread和ThreadPool的内容，建议保存图片查看，欢迎补充。<a id="more"></a></p>
+<img src="/images/android/Thread-ThreadPool-structure.png">
+]]></content>
+      
+        <categories>
+            
+            <category> 2018-03 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> Thread </tag>
+            
+            <tag> ThreadPool </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[【Android面试特辑】Handler总结回顾]]></title>
+      <url>http://wenjiehe.com/2018/03/21/android-handler-structure/</url>
+      <content type="html"><![CDATA[<p>总结一下Handler的内容，建议保存图片查看，欢迎补充。<a id="more"></a></p>
+<img src="/images/android/Handler-structure.png">
+]]></content>
+      
+        <categories>
+            
+            <category> 2018-03 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> handler </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[【Android面试特辑】事件分发机制总结回顾]]></title>
+      <url>http://wenjiehe.com/2018/03/20/android-dipatch-event-structure/</url>
+      <content type="html"><![CDATA[<p>总结一下事件分发的内容，建议保存图片查看，欢迎补充。<a id="more"></a></p>
+<img src="/images/android/Dispatch-event-structure.png">
+]]></content>
+      
+        <categories>
+            
+            <category> 2018-03 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> 事件分发 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[二进制中0的个数]]></title>
       <url>http://wenjiehe.com/2018/03/18/coding-interview-zero-number-of-second-session/</url>
       <content type="html"><![CDATA[<p>师兄的一道网易面试题<br>问题：求二进制0的个数，要求从第一位为1往后统计个数?</p>
@@ -31,7 +105,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[BroadcastReceiver总结回顾]]></title>
+      <title><![CDATA[【Android面试特辑】BroadcastReceiver总结回顾]]></title>
       <url>http://wenjiehe.com/2018/03/17/android-broadcastReceiver-structure/</url>
       <content type="html"><![CDATA[<p>总结一下BroadcastReceiver的内容，建议保存图片查看，欢迎补充。<a id="more"></a></p>
 <img src="/images/android/BroadcastReceiver-structure.png">
@@ -55,7 +129,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Binder总结回顾]]></title>
+      <title><![CDATA[【Android面试特辑】Binder总结回顾]]></title>
       <url>http://wenjiehe.com/2018/03/17/android-binder-structure/</url>
       <content type="html"><![CDATA[<p>总结一下Binder的内容，建议保存图片查看，欢迎补充。<a id="more"></a></p>
 <img src="/images/android/Binder-structure.png">
@@ -79,7 +153,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Service总结回顾]]></title>
+      <title><![CDATA[【Android面试特辑】Service总结回顾]]></title>
       <url>http://wenjiehe.com/2018/03/17/android-service-structure/</url>
       <content type="html"><![CDATA[<p>总结一下Service的内容，建议保存图片查看，欢迎补充。Binder的内容单独提出来。<a id="more"></a></p>
 <img src="/images/android/Service-structure.png">
@@ -103,7 +177,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Fragment总结回顾]]></title>
+      <title><![CDATA[【Android面试特辑】Fragment总结回顾]]></title>
       <url>http://wenjiehe.com/2018/03/17/android-fragment-structure/</url>
       <content type="html"><![CDATA[<p>总结一下Fragment的内容，建议保存图片查看，欢迎补充。<a id="more"></a></p>
 <img src="/images/android/Fragment-structure.png">
@@ -127,7 +201,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Activity总结回顾]]></title>
+      <title><![CDATA[【Android面试特辑】Activity总结回顾]]></title>
       <url>http://wenjiehe.com/2018/03/16/android-activity-structure/</url>
       <content type="html"><![CDATA[<p>总结一下Activity的内容，建议保存图片查看，欢迎补充，以后会添加启动过程。<a id="more"></a></p>
 <img src="/images/android/Activity-structure.png">
