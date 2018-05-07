@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http://wenjiehe.com/2018/05/07/Volley/</loc>
+    <lastmod>2018-05-07T03:28:14.926Z</lastmod>
+    <data>
+        <display>
+        <title>Volley理解</title>
+        <pubTime>2018-05-07T03:17:12.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>volley</tag>
+         
+         
+           
+             
+              <breadCrumb title="2018-05" url="http://wenjiehe.com/categories/2018-05/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://wenjiehe.com/2018/03/21/android-handler-structure/</loc>
     <lastmod>2018-03-24T12:25:42.843Z</lastmod>
     <data>
@@ -245,6 +267,7 @@
     
     
     
+    
   <url>
     <loc>http://wenjiehe.com/2017/05/30/2017-05-30-android-fileprovider/</loc>
     <lastmod>2017-07-10T14:19:15.277Z</lastmod>
@@ -266,7 +289,6 @@
     </data>
     </url>
 
-    
     
   <url>
     <loc>http://wenjiehe.com/2017/04/28/2017-04-28-idea-spring-demo-solutions/</loc>
@@ -515,30 +537,6 @@
 
     
   <url>
-    <loc>http://wenjiehe.com/2016/04/22/2016-04-22-raspberry-baiduyun/</loc>
-    <lastmod>2017-07-10T14:19:15.268Z</lastmod>
-    <data>
-        <display>
-        <title>Raspberry Pi 3 中文显示及输入+百度云传输</title>
-        <pubTime>2016-04-22T13:07:14.000Z</pubTime>
-        
-        <tag>中文显示输入</tag>
-         
-        <tag>树莓派</tag>
-         
-        <tag>百度云</tag>
-         
-         
-           
-             
-              <breadCrumb title="2016-04" url="http://wenjiehe.com/categories/2016-04/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://wenjiehe.com/2016/04/23/2016-04-23-raspberry-dnsmasq/</loc>
     <lastmod>2017-07-10T14:19:15.268Z</lastmod>
     <data>
@@ -553,6 +551,30 @@
         <tag>dns</tag>
          
         <tag>局域网缓存</tag>
+         
+         
+           
+             
+              <breadCrumb title="2016-04" url="http://wenjiehe.com/categories/2016-04/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://wenjiehe.com/2016/04/22/2016-04-22-raspberry-baiduyun/</loc>
+    <lastmod>2017-07-10T14:19:15.268Z</lastmod>
+    <data>
+        <display>
+        <title>Raspberry Pi 3 中文显示及输入+百度云传输</title>
+        <pubTime>2016-04-22T13:07:14.000Z</pubTime>
+        
+        <tag>树莓派</tag>
+         
+        <tag>中文显示输入</tag>
+         
+        <tag>百度云</tag>
          
          
            
@@ -631,6 +653,26 @@
 
     
   <url>
+    <loc>http://wenjiehe.com/2015/04/30/2015-04-30-i-am-always-busy/</loc>
+    <lastmod>2017-07-10T14:19:15.265Z</lastmod>
+    <data>
+        <display>
+        <title>大学，为什么我一直这么忙？</title>
+        <pubTime>2015-04-30T05:13:20.000Z</pubTime>
+        
+        <tag>思绪</tag>
+         
+         
+           
+             
+              <breadCrumb title="2015-04" url="http://wenjiehe.com/categories/2015-04/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://wenjiehe.com/2015/11/22/2015-11-22-die-in-plan/</loc>
     <lastmod>2017-07-10T14:19:15.265Z</lastmod>
     <data>
@@ -664,26 +706,6 @@
            
              
               <breadCrumb title="2015-07" url="http://wenjiehe.com/categories/2015-07/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://wenjiehe.com/2015/04/30/2015-04-30-i-am-always-busy/</loc>
-    <lastmod>2017-07-10T14:19:15.265Z</lastmod>
-    <data>
-        <display>
-        <title>大学，为什么我一直这么忙？</title>
-        <pubTime>2015-04-30T05:13:20.000Z</pubTime>
-        
-        <tag>思绪</tag>
-         
-         
-           
-             
-              <breadCrumb title="2015-04" url="http://wenjiehe.com/categories/2015-04/"/>
           
         </display>
     </data>
