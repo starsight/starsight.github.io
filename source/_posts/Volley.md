@@ -511,6 +511,107 @@ public class HttpHeaderParser {
 
 Volley对于图片加载做了内存缓存的处理(ImageLoader)，详情见[Volley图片加载功能](https://blog.csdn.net/wzy_1988/article/details/51005389)
 
+### 补充
+
+#### softTtl和ttl
+
+看上面的代码就知道它们的计算略有不同，stale-while-revalidate这个cache字段是RFC-5861增加的。
+
+对应两个函数refreshNeeded()和isExpired()并不完全相同，分别比较softTtl和ttl值。这可以用于实现从缓存请求的语义，对于softTtl，你将返回一个响应即使是“软”到期,但是会去网络和刷新，如果数据已经改变了返回一个新的响应。
+
+看一下CacheDispatcher类。这里先看ttl有没有过期，过期直接走网络请求响应；没有过期看softTtl，softTtl也没用过期那就完全没过期，过期了也没事，两步走，先返回响应，再去网络请求下，这时候发现过期会再刷新（对这次请求似乎没有影响？未求证），[一般不建议使用](https://groups.google.com/forum/#!topic/volley-users/70CVZdsLX0w)。
+
+```java
+public class CacheDispatcher extends Thread {
+	...
+	
+	@Override
+    public void run() {
+        if (DEBUG) VolleyLog.v("start new dispatcher");
+        Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+
+        // Make a blocking call to initialize the cache.
+        mCache.initialize();
+
+        while (true) {
+            try {
+                // Get a request from the cache triage queue, blocking until
+                // at least one is available.
+                final Request<?> request = mCacheQueue.take();
+                request.addMarker("cache-queue-take");
+
+                // If the request has been canceled, don't bother dispatching it.
+                if (request.isCanceled()) {
+                    request.finish("cache-discard-canceled");
+                    continue;
+                }
+
+                // Attempt to retrieve this item from cache.
+                Cache.Entry entry = mCache.get(request.getCacheKey());
+                if (entry == null) {
+                    request.addMarker("cache-miss");
+                    // Cache miss; send off to the network dispatcher.
+                    mNetworkQueue.put(request);
+                    continue;
+                }
+
+                // If it is completely expired, just send it to the network.
+                if (entry.isExpired()) {
+                    // ttl过期，彻底过期，直接走网络
+                    request.addMarker("cache-hit-expired");
+                    request.setCacheEntry(entry);
+                    mNetworkQueue.put(request);
+                    continue;
+                }
+
+                // We have a cache hit; parse its data for delivery back to the request.
+                request.addMarker("cache-hit");
+                Response<?> response = request.parseNetworkResponse(
+                        new NetworkResponse(entry.data, entry.responseHeaders));
+                request.addMarker("cache-hit-parsed");
+
+                if (!entry.refreshNeeded()) {
+                    // Completely unexpired cache hit. Just deliver the response.
+                    // 完全没过期
+                    mDelivery.postResponse(request, response);
+                } else {
+                    // Soft-expired cache hit. We can deliver the cached response,
+                    // but we need to also send the request to the network for
+                    // refreshing.
+                    // softTtl过期，先返回请求；再去网络请求
+                    request.addMarker("cache-hit-refresh-needed");
+                    request.setCacheEntry(entry);
+
+                    // Mark the response as intermediate.
+                    response.intermediate = true;
+
+                    // Post the intermediate response back to the user and have
+                    // the delivery then forward the request along to the network.
+                    mDelivery.postResponse(request, response, new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                mNetworkQueue.put(request);
+                            } catch (InterruptedException e) {
+                                // Not much we can do about this.
+                            }
+                        }
+                    });
+                }
+
+            } catch (InterruptedException e) {
+                // We may have been interrupted because it was time to quit.
+                if (mQuit) {
+                    return;
+                }
+                continue;
+            }
+        }
+    }
+    
+}
+```
+
 ### 优秀的参考链接
 
 [手撕Volley（一、二、三）](https://www.jianshu.com/p/33be82da8f25)
@@ -518,3 +619,5 @@ Volley对于图片加载做了内存缓存的处理(ImageLoader)，详情见[Vol
 [Volley图片加载功能](https://blog.csdn.net/wzy_1988/article/details/51005389)
 [彻底弄懂HTTP缓存机制及原理](http://www.cnblogs.com/chenqf/p/6386163.html)
 [浅谈浏览器http的缓存机制](https://www.cnblogs.com/vajoy/p/5341664.html)
+[Android史上最全面试题(持续更新ing)](https://www.jianshu.com/p/e3a182bbe7f7)
+[What‘s the different of entry.softTtl and entry.ttl in volley?](https://stackoverflow.com/questions/28523435/what-s-the-different-of-entry-softttl-and-entry-ttl-in-volley)
