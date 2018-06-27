@@ -1,0 +1,926 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,集合," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="为什么Hashtable ConcurrentHashmap不支持key或者value为null？在很多java资料中，都有提到 ConcurrentHashmap HashMap和Hashtable都是key-value存储结构，但他们有一个不同点是 ConcurrentHashmap、Hashtable不支持key或者value为null，而HashMap是支持的。为什么会有这个区别？在设计上">
+<meta name="keywords" content="Java,集合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ConcurrentHashmap拾遗">
+<meta property="og:url" content="http://wenjiehe.com/2018/06/11/ConcurrentHashmap/index.html">
+<meta property="og:site_name" content="Starsight">
+<meta property="og:description" content="为什么Hashtable ConcurrentHashmap不支持key或者value为null？在很多java资料中，都有提到 ConcurrentHashmap HashMap和Hashtable都是key-value存储结构，但他们有一个不同点是 ConcurrentHashmap、Hashtable不支持key或者value为null，而HashMap是支持的。为什么会有这个区别？在设计上">
+<meta property="og:updated_time" content="2018-06-27T15:33:54.976Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ConcurrentHashmap拾遗">
+<meta name="twitter:description" content="为什么Hashtable ConcurrentHashmap不支持key或者value为null？在很多java资料中，都有提到 ConcurrentHashmap HashMap和Hashtable都是key-value存储结构，但他们有一个不同点是 ConcurrentHashmap、Hashtable不支持key或者value为null，而HashMap是支持的。为什么会有这个区别？在设计上">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wenjiehe.com/2018/06/11/ConcurrentHashmap/"/>
+
+
+
+
+
+  <title> ConcurrentHashmap拾遗 | Starsight </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e4b4e5c7c09b80a0ea7080386026279a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Starsight</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-external-link"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://wenjiehe.com/2018/06/11/ConcurrentHashmap/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="贺文杰">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/headphoto.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Starsight">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Starsight" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ConcurrentHashmap拾遗
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-11T14:23:19+08:00">
+                2018-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/2018-06/" itemprop="url" rel="index">
+                    <span itemprop="name">2018-06</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="为什么Hashtable-ConcurrentHashmap不支持key或者value为null？"><a href="#为什么Hashtable-ConcurrentHashmap不支持key或者value为null？" class="headerlink" title="为什么Hashtable ConcurrentHashmap不支持key或者value为null？"></a>为什么Hashtable ConcurrentHashmap不支持key或者value为null？</h3><p>在很多java资料中，都有提到 ConcurrentHashmap HashMap和Hashtable都是key-value存储结构，但他们有一个不同点是 ConcurrentHashmap、Hashtable不支持key或者value为null，而HashMap是支持的。为什么会有这个区别？在设计上的目的是什么？</p>
+<a id="more"></a>在网上找到了这样的解答:The main reason that nulls aren’t allowed in ConcurrentMaps (ConcurrentHashMaps, ConcurrentSkipListMaps) is that ambiguities that may be just barely tolerable in non-concurrent maps can’t be accommodated. The main one is that if map.get(key) returns null, you can’t detect whether the key explicitly maps to null vs the key isn’t mapped. In a non-concurrent map, you can check this via map.contains(key), but in a concurrent one, the map might have changed between calls.<br><br>理解如下：ConcurrentHashmap和Hashtable都是支持并发的，这样会有一个问题，当你通过get(k)获取对应的value时，如果获取到的是null时，你无法判断，它是put（k,v）的时候value为null，还是这个key从来没有做过映射（map）。HashMap是非并发的，可以通过contains(key)来做这个判断。而支持并发的Map在调用m.contains（key）和m.get(key),m可能已经不同了。<br><br>个人觉得这个解答还是很有道理的，也是解决了心头的一个疑惑，大牛们在设计时确实考虑的很多，在这里分享给大家。<br><br>类似的解答还有这个：<br>down vote<br>I believe it is, at least in part, to allow you to combine containsKey and get into a single call. If the map can hold nulls, there is no way to tell if get is returning a null because there was no key for that value, or just because the value was null.<br><br>Why is that a problem? Because there is no safe way to do that yourself. Take the following code:<br><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (m.containsKey(k)) &#123;</div><div class="line">   <span class="keyword">return</span> m.get(k);</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">   <span class="keyword">throw</span> <span class="keyword">new</span> KeyNotPresentException();</div><div class="line">&#125;<span class="number">12345</span></div></pre></td></tr></table></figure>
+<p>Since m is a concurrent map, key k may be deleted between the containsKey and get calls, causing this snippet to return a null that was never in the table, rather than the desired KeyNotPresentException.</p>
+<p>Normally you would solve that by synchronizing, but with a concurrent map that of course won’t work. Hence the signature for get had to change, and the only way to do that in a backwards-compatible way was to prevent the user inserting null values in the first place, and continue using that as a placeholder for “key not found”.</p>
+<p><a href="http://stackoverflow.com/questions/698638/why-does-concurrenthashmap-prevent-null-keys-and-values%20%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80" target="_blank" rel="external">参考地址</a></p>
+<p>其他辅助性（佐证性质）的理由见下文。（对于ConcurrentHashmap，我参考其他人的相关文章，觉得还有其他理由。）</p>
+<hr>
+<h3 id="ConcurrentHashmap中get方法为何不需要加锁同步"><a href="#ConcurrentHashmap中get方法为何不需要加锁同步" class="headerlink" title="ConcurrentHashmap中get方法为何不需要加锁同步"></a>ConcurrentHashmap中get方法为何不需要加锁同步</h3><p>对于1.6，我们知道ConcurrentHashmap的get方法是没有加锁的，<strong>所以value不能为null刚好用上</strong>：newEntry对象是通过 <code>new HashEntry(K k , V v, HashEntry next)</code> 来创建的。如果另一个线程刚好new 这个对象时，当前线程来get它。因为没有同步，就可能会出现当前线程得到的newEntry对象是一个没有完全构造好的对象引用。</p>
+<p>回想一下我们之前讨论的<strong>DCL</strong>的问题，这里也一样，没有锁同步的话，new 一个对象对于多线程看到这个对象的状态是没有保障的，这里同样有可能一个线程new这个对象的时候还没有执行完构造函数就被另一个线程得到这个对象引用。<br>所以才需要判断一下：<code>if (v != null)</code> 如果确实是一个不完整的对象，则使用锁的方式再次get一次。（来自参考文章1）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function">V <span class="title">get</span><span class="params">(Object key, <span class="keyword">int</span> hash)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (count != <span class="number">0</span>) &#123; <span class="comment">// read-volatile // ①</span></div><div class="line">            HashEntry&lt;K,V&gt; e = getFirst(hash); </div><div class="line">            <span class="keyword">while</span> (e != <span class="keyword">null</span>) &#123;</div><div class="line">                <span class="keyword">if</span> (e.hash == hash &amp;&amp; key.equals(e.key)) &#123;</div><div class="line">                    V v = e.value;</div><div class="line">                    <span class="keyword">if</span> (v != <span class="keyword">null</span>)  <span class="comment">// ② 注意这里</span></div><div class="line">                        <span class="keyword">return</span> v;</div><div class="line">                    <span class="keyword">return</span> readValueUnderLock(e); <span class="comment">// recheck 见参考文章2</span></div><div class="line">                &#125;</div><div class="line">                e = e.next;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对于1.7，应该是通过UNSAFE.putOrderedObject（保证刚刚插入表头的节点被读取）来保证；对于1.8，采用CAS和synchronized保证并发一致，但似乎没有做对正在put数据的二次获取，未仔细研究，以上见参考文章3。</p>
+<p>参考文章</p>
+<p><a href="http://www.cnblogs.com/yydcdut/p/3959815.html" target="_blank" rel="external">http://www.cnblogs.com/yydcdut/p/3959815.html</a></p>
+<p><a href="https://segmentfault.com/q/1010000006669618" target="_blank" rel="external">https://segmentfault.com/q/1010000006669618</a></p>
+<p><a href="https://www.javadoop.com/post/hashmap#Java7%20ConcurrentHashMap" target="_blank" rel="external">https://www.javadoop.com/post/hashmap#Java7%20ConcurrentHashMap</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/集合/" rel="tag"># 集合</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/07/Volley/" rel="next" title="Volley理解">
+                <i class="fa fa-chevron-left"></i> Volley理解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/27/Xiaoai/" rel="prev" title="小爱技能开发大赛-抽签技能开发分享">
+                小爱技能开发大赛-抽签技能开发分享 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ0Ny82MDE1"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/headphoto.jpg"
+               alt="贺文杰" />
+          <p class="site-author-name" itemprop="name">贺文杰</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/starsight" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1585017253" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/starsight" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么Hashtable-ConcurrentHashmap不支持key或者value为null？"><span class="nav-number">1.</span> <span class="nav-text">为什么Hashtable ConcurrentHashmap不支持key或者value为null？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConcurrentHashmap中get方法为何不需要加锁同步"><span class="nav-number">2.</span> <span class="nav-text">ConcurrentHashmap中get方法为何不需要加锁同步</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">贺文杰</span>
+</div>
+
+
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div style="margin:-20px;position: absolute;right:265px;">
+<dl style="float:left">
+  <dt style="float:left">
+    <dd style="float:left;width:300px">
+      <span style="float:right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+      <span style="float:right">本站总访问量<span><span style="float:right" id="busuanzi_value_site_pv"></span>
+    </dd>
+  </dt>
+  <dt style="float:left;width:300px">
+    <dd>
+      <span style="float:left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span style="float:left">您是第</span>
+      <span style="float:left" id="busuanzi_value_site_uv"></span>
+      <span style="float:left">个小伙伴</span>
+    </dd>
+  </dt>
+</dl>
+</div>
+
+<span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+<span id="showDays"></span>
+
+<script>
+	var birthDay = new Date('04/01/2015');
+	var now = new Date();
+	var duration = now.getTime() - birthDay.getTime();
+	var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+	document.getElementById('showDays').innerHTML='本站已运行' + total + '天';
+</script>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+   
+     
+   
+  
+       <!-- UY BEGIN -->
+       <script type="text/javascript">
+          (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+          })(document, 'script');
+       </script>
+       <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+       <!-- UY END -->
+   
+ 
+
+
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=MTAyMC8yOTQ0Ny82MDE1"></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

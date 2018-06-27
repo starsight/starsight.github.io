@@ -1,0 +1,892 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="android,小爱同学," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="“抽签”技能的开发流程基本沿袭官方给出的Hello World的开发方式。 首先明确技能的功能，一般而言，抽签包括两个步骤，设置抽签人数，依次开始抽签。">
+<meta name="keywords" content="android,小爱同学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小爱技能开发大赛-抽签技能开发分享">
+<meta property="og:url" content="http://wenjiehe.com/2018/06/27/Xiaoai/index.html">
+<meta property="og:site_name" content="Starsight">
+<meta property="og:description" content="“抽签”技能的开发流程基本沿袭官方给出的Hello World的开发方式。 首先明确技能的功能，一般而言，抽签包括两个步骤，设置抽签人数，依次开始抽签。">
+<meta property="og:image" content="http://wenjiehe.com/images/xiaoai-table.png">
+<meta property="og:updated_time" content="2018-06-27T15:39:55.602Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小爱技能开发大赛-抽签技能开发分享">
+<meta name="twitter:description" content="“抽签”技能的开发流程基本沿袭官方给出的Hello World的开发方式。 首先明确技能的功能，一般而言，抽签包括两个步骤，设置抽签人数，依次开始抽签。">
+<meta name="twitter:image" content="http://wenjiehe.com/images/xiaoai-table.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wenjiehe.com/2018/06/27/Xiaoai/"/>
+
+
+
+
+
+  <title> 小爱技能开发大赛-抽签技能开发分享 | Starsight </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e4b4e5c7c09b80a0ea7080386026279a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Starsight</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-external-link"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://wenjiehe.com/2018/06/27/Xiaoai/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="贺文杰">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/headphoto.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Starsight">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Starsight" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                小爱技能开发大赛-抽签技能开发分享
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-27T23:17:01+08:00">
+                2018-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/2018-06/" itemprop="url" rel="index">
+                    <span itemprop="name">2018-06</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>“抽签”技能的开发流程基本沿袭官方给出的<a href="https://xiaoai.mi.com/documents/Home?type=/api/doc/render_markdown/SkillAccess/SkillDocument/HelloWorld" target="_blank" rel="external">Hello World</a>的开发方式。</p>
+<p>首先明确技能的功能，一般而言，抽签包括两个步骤，设置抽签人数，依次开始抽签。<a id="more"></a>此外还需要支持查看已经抽签的结果。再看应用场景，因为技能的对象面向于智能音箱，而音箱的人机交互方式只有通过语音进行，所以对于给用户的交互过程既要保证功能的准确传达，又要保证其简洁与稳定。</p>
+<p>针对上述要求，小爱开发平台使用意图与词表的交互模型，意图基于词表，平台内置了常见的词表，如颜色、数字、国家等。本技能为了追求开发准确与高效，未自定义词表，使用内置词表完成意图构建。</p>
+<p>本技能的意图针对其功能划分为三部分，分别是抽签人数的设置，签号的抽取，查看抽签结果，其中抽签人数的设置需要使用数字词表。构建的意图如下。</p>
+<img src="/images/xiaoai-table.png">
+<p>接下来小爱平台会根据用户输入信息整合成服务器-客户端常见的<code>JSON</code>形式的<code>request</code>发向服务器，接下来就是开发者要完成的主体部分了。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> xiaoai <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> random</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">outputJson</span><span class="params">(toSpeakText, is_session_end, attribute=None, openMic=True)</span>:</span></div><div class="line">    xiaoAIResponse=XiaoAIResponse(to_speak=XiaoAIToSpeak(type_=<span class="number">0</span>, text=toSpeakText), open_mic=openMic)</div><div class="line">    response = xiaoai_response(XiaoAIOpenResponse(version=<span class="string">"1.0"</span>,is_session_end=is_session_end,response=xiaoAIResponse,session_attributes=attribute))</div><div class="line">    <span class="keyword">return</span> response</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(event)</span>:</span></div><div class="line">    req = xiaoai_request(event)</div><div class="line">    sum_person = <span class="number">0</span></div><div class="line">    selected_num = <span class="number">0</span></div><div class="line">    rand =<span class="number">0</span></div><div class="line">    count = <span class="number">0</span></div><div class="line">    dictionary = &#123;&#125;</div><div class="line">    attribute = &#123;<span class="string">"sum_person"</span>:<span class="number">0</span>&#125;</div><div class="line">    <span class="keyword">if</span> req.request.type == <span class="number">0</span>:</div><div class="line">        attribute[<span class="string">'sum_person'</span>] = <span class="number">200</span></div><div class="line">        attribute[<span class="string">'dictionary'</span>] = dictionary</div><div class="line">        attribute[<span class="string">"selected_num"</span>] = <span class="number">0</span></div><div class="line">        <span class="keyword">return</span> outputJson(<span class="string">"欢迎进入抽签小工具，请先向小爱说明抽签人数，如 一共10个人"</span>, <span class="keyword">False</span>, attribute)</div><div class="line">    <span class="keyword">elif</span> req.request.type == <span class="number">1</span>:</div><div class="line">        <span class="keyword">if</span> ((<span class="keyword">not</span> hasattr(req.request, <span class="string">"slot_info"</span>)) <span class="keyword">or</span> (<span class="keyword">not</span> hasattr(req.request.slot_info, <span class="string">"intent_name"</span>))):</div><div class="line">            <span class="keyword">return</span> outputJson(<span class="string">"抱歉，我还没有听懂。请先说明抽签人数或者直接对小爱说抽签。"</span>, <span class="keyword">False</span>, <span class="keyword">None</span>)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">if</span> req.request.slot_info.intent_name == <span class="string">'random_sum'</span>:</div><div class="line">                slotsList = req.request.slot_info.slots</div><div class="line">                sum_person = [item <span class="keyword">for</span> item <span class="keyword">in</span> slotsList <span class="keyword">if</span> item[<span class="string">'name'</span>] == <span class="string">'random_sum'</span>][<span class="number">0</span>][<span class="string">'value'</span>]</div><div class="line">                <span class="keyword">if</span> int(sum_person) &gt; <span class="number">200</span>:</div><div class="line">                    sum_person = <span class="number">200</span></div><div class="line">                <span class="keyword">elif</span> int(sum_person) &lt; <span class="number">1</span>:</div><div class="line">                    sum_person = <span class="number">1</span></div><div class="line">                attribute[<span class="string">"sum_person"</span>] = int(sum_person)</div><div class="line">                attribute[<span class="string">"selected_num"</span>] = int(selected_num)</div><div class="line">                attribute[<span class="string">'dictionary'</span>] = dictionary</div><div class="line">                <span class="keyword">return</span> outputJson(<span class="string">"已设置参与人数"</span> + str(sum_person) + <span class="string">"人，请大家依次对小爱说 抽签 抽取自己的签号"</span>, <span class="keyword">False</span>,attribute)</div><div class="line">            <span class="keyword">elif</span> req.request.slot_info.intent_name == <span class="string">'random_select'</span>:</div><div class="line">                <span class="keyword">if</span> hasattr(req.session, <span class="string">"attributes"</span>):</div><div class="line">                    sum_person = int(req.session.attributes[<span class="string">"sum_person"</span>])</div><div class="line">                    selected_num = int(req.session.attributes[<span class="string">"selected_num"</span>])</div><div class="line">                    dictionary = req.session.attributes[<span class="string">"dictionary"</span>]</div><div class="line">                    attribute[<span class="string">"sum_person"</span>] = int(sum_person)</div><div class="line"></div><div class="line">                <span class="keyword">if</span> selected_num == sum_person:</div><div class="line">                    attribute[<span class="string">'dictionary'</span>] = dictionary</div><div class="line">                    attribute[<span class="string">"sum_person"</span>] = selected_num</div><div class="line">                    attribute[<span class="string">"selected_num"</span>] = selected_num</div><div class="line">                    <span class="keyword">return</span> outputJson(<span class="string">"签号都被抽完了，您可以向小爱说 所有人 来查看抽签信息或者重新设置人数哦"</span>, <span class="keyword">False</span>,attribute)</div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    rand = random.randint(<span class="number">1</span>,sum_person)</div><div class="line">                    print(<span class="string">"dictionary: "</span>+ str(dictionary))</div><div class="line">                    <span class="comment">#略</span></div><div class="line">                    dictionary.setdefault(str(rand),<span class="number">1</span>)</div><div class="line">                attribute[<span class="string">'dictionary'</span>] = dictionary</div><div class="line">                attribute[<span class="string">"selected_num"</span>] = int(selected_num+<span class="number">1</span>)</div><div class="line">                <span class="comment">#selected_num = selected_num+1</span></div><div class="line">                <span class="keyword">return</span> outputJson(<span class="string">"签号："</span>+str(rand)+<span class="string">"，还剩"</span>+str(sum_person-selected_num<span class="number">-1</span>)+<span class="string">"个签位"</span>, <span class="keyword">False</span>, attribute) </div><div class="line">            <span class="keyword">elif</span> req.request.slot_info.intent_name == <span class="string">'all_selected_info'</span>:</div><div class="line">                <span class="keyword">if</span> hasattr(req.session, <span class="string">"attributes"</span>):</div><div class="line">                    sum_person = int(req.session.attributes[<span class="string">"sum_person"</span>])</div><div class="line">                    selected_num = int(req.session.attributes[<span class="string">"selected_num"</span>])</div><div class="line">                    dictionary = req.session.attributes[<span class="string">"dictionary"</span>]</div><div class="line">                    attribute = req.session.attributes</div><div class="line">                </div><div class="line">                str_output = <span class="string">"已经选择的签号依次为："</span></div><div class="line">                j = <span class="number">1</span></div><div class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> dictionary.keys():</div><div class="line">                    str_output += str(j)+<span class="string">"号签:"</span>+ str(i) +<span class="string">", "</span></div><div class="line">                    j+=<span class="number">1</span></div><div class="line">                str_output +=<span class="string">"还剩"</span>+ str(sum_person-selected_num)+<span class="string">"个签位未选择。"</span></div><div class="line">                print(str_output)</div><div class="line">                <span class="keyword">return</span> outputJson(str_output, <span class="keyword">False</span>, attribute)</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">return</span> outputJson(<span class="string">"抱歉，我没有听懂呢"</span>, <span class="keyword">False</span>,<span class="keyword">None</span>)</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">return</span> outputJson(<span class="string">"感谢使用抽签小工具，下次再见哦~"</span>, <span class="keyword">True</span>, <span class="keyword">None</span>, <span class="keyword">False</span>)</div></pre></td></tr></table></figure></p>
+<p>直接看代码吧，可以根据中文看出分发的流程，<code>intent_name</code>就是上文表格的意图名称，接下来的逻辑并不是很复杂，这里对应用场景做了一些限制，如最大（默认）抽签人数为200人，可以直接跳过设置人数这个环节，这些都是为了减少用户不必要的往复交互。</p>
+<p>由于每一次请求都是独立的，所以抽签人数和抽签结果的储存是必须要考虑的。这里采用了小米的开放云，所以平台也限制了一些其他的实现方案，在请教了小爱工程师之后采用小爱<code>request</code>中自带的<code>session</code>字段保存信息，由于数据量不大所以不会形成太重数据传输压力，<code>python</code>的小爱包是不开源的，可以到<a href="https://xiaoai.mi.com/documents/Home?type=/api/doc/render_markdown/SkillAccess/SkillDocument/CustomSkills/CustomSkillsMain" target="_blank" rel="external">这个链接</a>查看字段定义，刚开始都不知道<code>JSON</code>该怎么传输，后来发现只要用默认的<code>dictionary</code>就可以了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"># android</a>
+          
+            <a href="/tags/小爱同学/" rel="tag"># 小爱同学</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/11/ConcurrentHashmap/" rel="next" title="ConcurrentHashmap拾遗">
+                <i class="fa fa-chevron-left"></i> ConcurrentHashmap拾遗
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ0Ny82MDE1"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/headphoto.jpg"
+               alt="贺文杰" />
+          <p class="site-author-name" itemprop="name">贺文杰</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/starsight" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1585017253" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/starsight" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">贺文杰</span>
+</div>
+
+
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div style="margin:-20px;position: absolute;right:265px;">
+<dl style="float:left">
+  <dt style="float:left">
+    <dd style="float:left;width:300px">
+      <span style="float:right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+      <span style="float:right">本站总访问量<span><span style="float:right" id="busuanzi_value_site_pv"></span>
+    </dd>
+  </dt>
+  <dt style="float:left;width:300px">
+    <dd>
+      <span style="float:left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span style="float:left">您是第</span>
+      <span style="float:left" id="busuanzi_value_site_uv"></span>
+      <span style="float:left">个小伙伴</span>
+    </dd>
+  </dt>
+</dl>
+</div>
+
+<span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+<span id="showDays"></span>
+
+<script>
+	var birthDay = new Date('04/01/2015');
+	var now = new Date();
+	var duration = now.getTime() - birthDay.getTime();
+	var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+	document.getElementById('showDays').innerHTML='本站已运行' + total + '天';
+</script>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+   
+     
+   
+  
+       <!-- UY BEGIN -->
+       <script type="text/javascript">
+          (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+          })(document, 'script');
+       </script>
+       <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+       <!-- UY END -->
+   
+ 
+
+
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=MTAyMC8yOTQ0Ny82MDE1"></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
