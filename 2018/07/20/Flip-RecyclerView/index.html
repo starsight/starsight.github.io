@@ -1,0 +1,926 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="android,recycleView," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="实现一个自定义LayoutManager，默认只有一个抽象方法，实现的重点在于onLayoutChildren对页面的布局和滑动操作，当然还有缓存。 属性定义mPosition是当前item的位置信息，mPositionOffset是偏移信息，mMinVy是最低的y方向的速度，这个需要根据不同屏幕尺寸来定。 12345private static final int MIN_VY = 300;pr">
+<meta name="keywords" content="android,recycleView">
+<meta property="og:type" content="article">
+<meta property="og:title" content="翻页效果的RecyclerView">
+<meta property="og:url" content="http://wenjiehe.com/2018/07/20/Flip-RecyclerView/index.html">
+<meta property="og:site_name" content="Starsight">
+<meta property="og:description" content="实现一个自定义LayoutManager，默认只有一个抽象方法，实现的重点在于onLayoutChildren对页面的布局和滑动操作，当然还有缓存。 属性定义mPosition是当前item的位置信息，mPositionOffset是偏移信息，mMinVy是最低的y方向的速度，这个需要根据不同屏幕尺寸来定。 12345private static final int MIN_VY = 300;pr">
+<meta property="og:updated_time" content="2018-07-28T12:39:13.808Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="翻页效果的RecyclerView">
+<meta name="twitter:description" content="实现一个自定义LayoutManager，默认只有一个抽象方法，实现的重点在于onLayoutChildren对页面的布局和滑动操作，当然还有缓存。 属性定义mPosition是当前item的位置信息，mPositionOffset是偏移信息，mMinVy是最低的y方向的速度，这个需要根据不同屏幕尺寸来定。 12345private static final int MIN_VY = 300;pr">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wenjiehe.com/2018/07/20/Flip-RecyclerView/"/>
+
+
+
+
+
+  <title> 翻页效果的RecyclerView | Starsight </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e4b4e5c7c09b80a0ea7080386026279a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Starsight</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-external-link"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://wenjiehe.com/2018/07/20/Flip-RecyclerView/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="贺文杰">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/headphoto.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Starsight">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Starsight" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                翻页效果的RecyclerView
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-20T20:37:00+08:00">
+                2018-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/2018-07/" itemprop="url" rel="index">
+                    <span itemprop="name">2018-07</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>实现一个自定义LayoutManager，默认只有一个抽象方法，实现的重点在于onLayoutChildren对页面的布局和滑动操作，当然还有缓存。</p>
+<h3 id="属性定义"><a href="#属性定义" class="headerlink" title="属性定义"></a>属性定义</h3><p>mPosition是当前item的位置信息，mPositionOffset是偏移信息，mMinVy是最低的y方向的速度，这个需要根据不同屏幕尺寸来定。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MIN_VY = <span class="number">300</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> mPosition = <span class="number">0</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> mPositionOffset = <span class="number">0</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> mMinVy = <span class="number">0</span>;</div><div class="line"><span class="keyword">private</span> Context mContext;</div></pre></td></tr></table></figure>
+<h3 id="布局流程"><a href="#布局流程" class="headerlink" title="布局流程"></a>布局流程</h3><p>为了实现翻页效果，每次滑动都是有前景页和背景页。当翻页时，如果flip没有超过一半，当前页是primary（前景页），下一页是secondary（背景页）；当超过一半当前页已经是“下一页”（背景页）了，而刚才的当前页变成了上一页（前景页）。<a id="more"></a>值得注意的是，需要把需要把item布局文件的<strong>背景设置成白色</strong>，不然会有重叠效果。翻页效果在FlipCard中实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLayoutChildren</span><span class="params">(RecyclerView.Recycler recycler, RecyclerView.State state)</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">//如果没有item，直接返回</span></div><div class="line">    <span class="keyword">if</span> (getItemCount() &lt;= <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 跳过preLayout，preLayout主要用于支持动画</span></div><div class="line">    <span class="keyword">if</span> (state.isPreLayout()) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    fill(recycler, state);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">fill</span><span class="params">(RecyclerView.Recycler recycler, RecyclerView.State state)</span> </span>&#123;</div><div class="line"></div><div class="line">        checkPosition(state);</div><div class="line"></div><div class="line">        View primary;</div><div class="line">        View pre = <span class="keyword">null</span>;</div><div class="line">        View next = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">        detachAndScrapAttachedViews(recycler);</div><div class="line"></div><div class="line">    	<span class="comment">// 当前页</span></div><div class="line">        primary = recycler.getViewForPosition(mPosition);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (mPosition + <span class="number">1</span> &lt; state.getItemCount()) &#123;</div><div class="line">            <span class="comment">// 下一页</span></div><div class="line">            next = recycler.getViewForPosition(mPosition + <span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (mPosition - <span class="number">1</span> &gt;= <span class="number">0</span>) &#123;</div><div class="line">            <span class="comment">// 上一页</span></div><div class="line">            pre = recycler.getViewForPosition(mPosition - <span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">        View secondary = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">    	<span class="comment">// 根据偏移计算是需要上一页还是下一页</span></div><div class="line">        <span class="keyword">if</span> (mPositionOffset &gt; <span class="number">0</span>) &#123;</div><div class="line">            secondary = next;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mPositionOffset &lt; <span class="number">0</span>) &#123;</div><div class="line">            secondary = pre;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (mPositionOffset != <span class="number">0</span> &amp;&amp; secondary != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="comment">// 存在背景页就添加</span></div><div class="line">            addView(secondary);</div><div class="line">            measureChildWithMargins(secondary, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line">            layoutDecorated(secondary, <span class="number">0</span>, <span class="number">0</span>, getWidth(), getHeight());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    	<span class="comment">// 回收另一页的信息</span></div><div class="line">        <span class="keyword">if</span> (pre != <span class="keyword">null</span> &amp;&amp; secondary !=pre) &#123;</div><div class="line">            recycler.recycleView(pre);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (next != <span class="keyword">null</span> &amp;&amp; secondary !=next) &#123;</div><div class="line">            recycler.recycleView(next);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    	<span class="comment">// 添加当前页作为前景页</span></div><div class="line">        addView(primary);</div><div class="line">        measureChildWithMargins(primary, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line">        layoutDecorated(primary, <span class="number">0</span>, <span class="number">0</span>, getWidth(), getHeight());</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (primary <span class="keyword">instanceof</span> FlipCard &amp;&amp; (secondary == <span class="keyword">null</span> || secondary <span class="keyword">instanceof</span> FlipCard)) &#123;</div><div class="line">            <span class="keyword">final</span> <span class="keyword">float</span> percent = (<span class="keyword">float</span>) mPositionOffset / getItemHeightPositon();</div><div class="line">            <span class="comment">// 计算滑动比例，得到flip效果</span></div><div class="line">            Log.d(TAG, <span class="string">"fill: "</span>+percent);</div><div class="line">            <span class="keyword">if</span> (secondary != <span class="keyword">null</span>) &#123;</div><div class="line">                ((FlipCard) secondary).setState(<span class="keyword">false</span>, percent);</div><div class="line">                ((FlipCard) primary).setState(<span class="keyword">true</span>, percent);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">// 当在第一页或最后一页时不存在背景页（留白/刷新等）</span></div><div class="line">                ((FlipCard) primary).setState(<span class="keyword">true</span>, percent);</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"view should be FlipCard"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkPosition</span><span class="params">(RecyclerView.State state)</span> </span>&#123;</div><div class="line">        <span class="comment">// 页面最多能滑动到 -2/5*itemHeight ~ itemHeight*(state.getItemCount()-1) + itemHeight*2/5</span></div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> itemHeight = getItemHeightPositon();</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> current = mPosition * itemHeight + mPositionOffset;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> max = itemHeight * (state.getItemCount() - <span class="number">1</span>) + itemHeight * <span class="number">2</span> / <span class="number">5</span>;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> pos = Math.max(-itemHeight * <span class="number">2</span> / <span class="number">5</span>, Math.min(current, max));</div><div class="line">        mPosition = Math.round(pos / (<span class="keyword">float</span>)itemHeight);</div><div class="line">        mPosition = mPosition &gt;= <span class="number">0</span> ? mPosition : <span class="number">0</span>;</div><div class="line">        mPositionOffset = pos - mPosition * itemHeight;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>为了使翻页效果流畅，设置每一页的高度都是实际高度的2/3，这样避免完全滑满一个屏幕才完成翻页效果（不考虑惯性滑动）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 这样把一个item的高度设为了原来的2/3，直观的结果就是只要滑动2/3就相当于过了一个item</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getItemHeightInPositon</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> getHeight() * <span class="number">2</span> / <span class="number">3</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="滑动"><a href="#滑动" class="headerlink" title="滑动"></a>滑动</h3><p>完成上述步骤自然还不能滑动</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canScrollVertically</span><span class="params">()</span> </span>&#123;</div><div class="line">	<span class="comment">// 纵向可滑</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">scrollVerticallyBy</span><span class="params">(<span class="keyword">int</span> dy, RecyclerView.Recycler recycler, RecyclerView.State state)</span> </span>&#123;</div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> before = mPosition * getItemHeightPositon() + mPositionOffset;</div><div class="line"></div><div class="line">    mPositionOffset += dy;</div><div class="line">    checkPosition(state);</div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> after = mPosition * getItemHeightPositon() + mPositionOffset;</div><div class="line"></div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> ans = after - before;</div><div class="line">    fill(recycler, state);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> ans;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scrollToPosition</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</div><div class="line">    mPosition = position;</div><div class="line">    mPositionOffset = <span class="number">0</span>;</div><div class="line">    requestLayout();</div><div class="line">    Log.d(TAG, <span class="string">"scrollToPosition "</span> + position + <span class="string">" position "</span> + mPosition + <span class="string">" positionOffset "</span> + mPositionOffset);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 平稳滑动</span></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">smoothScrollToPosition</span><span class="params">(RecyclerView recyclerView, RecyclerView.State state, <span class="keyword">int</span> position)</span> </span>&#123;</div><div class="line">    Log.d(TAG, <span class="string">"smoothScrollTo "</span> + position + <span class="string">" position "</span> + mPosition + <span class="string">" positionOffset "</span> + mPositionOffset);</div><div class="line"></div><div class="line">    FlipScroller scroller = <span class="keyword">new</span> FlipScroller(recyclerView.getContext());</div><div class="line">    scroller.setTargetPosition(position);</div><div class="line">    startSmoothScroll(scroller);</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">FlipScroller</span> <span class="keyword">extends</span> <span class="title">LinearSmoothScroller</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"FlipScroller"</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FlipScroller</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onStop</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onStop();</div><div class="line">        Log.d(TAG, <span class="string">"onStop: "</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">calculateDyToMakeVisible</span><span class="params">(View view, <span class="keyword">int</span> snapPreference)</span> </span>&#123;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> position = getPosition(view);</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> now = mPositionOffset + mPosition * getItemHeightPositon();</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> to = position * getItemHeightPositon();</div><div class="line">        Log.d(TAG, <span class="string">"calculateDyToMakeVisible: position "</span> + position + <span class="string">" ans "</span> + (to - now));</div><div class="line">        <span class="keyword">return</span> (now - to);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">calculateDxToMakeVisible</span><span class="params">(View view, <span class="keyword">int</span> snapPreference)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">calculateTimeForScrolling</span><span class="params">(<span class="keyword">int</span> dx)</span> </span>&#123;</div><div class="line"></div><div class="line">        Log.d(TAG, <span class="string">"calculateTimeForScrolling: "</span>);</div><div class="line">        <span class="keyword">int</span> time = <span class="keyword">super</span>.calculateTimeForScrolling(dx*<span class="number">5</span>);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> time;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="comment">/*</span></div><div class="line">以下四个方法是为了滑动时的对齐操作，不至于滑了半页然后就停在那</div><div class="line">详细可看：https://www.jianshu.com/p/e54db232df62</div><div class="line">*/</div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> PointF <span class="title">computeScrollVectorForPosition</span><span class="params">(<span class="keyword">int</span> targetPosition)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> dir = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> now = mPosition * getItemHeightPositon() + mPositionOffset;</div><div class="line">    <span class="keyword">int</span> to = targetPosition * getItemHeightPositon();</div><div class="line">    <span class="keyword">if</span> (now &gt; to) &#123;</div><div class="line">        dir = -<span class="number">1</span>;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (now &lt; to) &#123;</div><div class="line">        dir = <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    Log.d(TAG, <span class="string">"computeScrollVector "</span> + dir + <span class="string">" now "</span> + mPosition + <span class="string">" target "</span> + targetPosition);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> PointF(<span class="number">0</span>, dir);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">calculateDistance</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> pos = getPosition(view);</div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> now = getItemHeightPositon() * mPosition + mPositionOffset;</div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> to = getItemHeightPositon() * pos;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> to - now;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findTargetPosition</span><span class="params">(<span class="keyword">int</span> vY)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> ans = mPosition;</div><div class="line">    Log.d(TAG, <span class="string">"findTargetPosition: "</span>+vY+<span class="string">"~"</span>+mPositionOffset);</div><div class="line">    <span class="keyword">int</span> absV = vY &gt; <span class="number">0</span> ? vY : -vY;</div><div class="line">    <span class="keyword">if</span> (absV &gt; mMinVy) &#123;</div><div class="line">        <span class="keyword">if</span> (vY * mPositionOffset &gt; <span class="number">0</span>) &#123;</div><div class="line">            <span class="comment">// 速度与位置偏移同向</span></div><div class="line">            <span class="keyword">int</span> d = vY &gt; <span class="number">0</span> ? <span class="number">1</span> : -<span class="number">1</span>;</div><div class="line">            ans += d;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            ans = mPosition;</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        ans = mPosition;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> count = getItemCount();</div><div class="line">    <span class="keyword">if</span> (count == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ans = Math.min(count - <span class="number">1</span>, Math.max(<span class="number">0</span>, ans));</div><div class="line">    <span class="keyword">return</span> ans;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> View <span class="title">findSnapView</span><span class="params">()</span> </span>&#123;</div><div class="line">    Log.d(TAG, <span class="string">"findSnapView: "</span>+getChildCount()+<span class="string">"~"</span>+getItemCount());</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; getChildCount(); i ++ )&#123;</div><div class="line">        View child = getChildAt(i);</div><div class="line">        <span class="keyword">if</span> (getPosition(child) == mPosition) &#123;</div><div class="line">            <span class="keyword">return</span> child;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 滑动时的对齐操作</span></div><div class="line"><span class="comment">// 惯性滑动先根据findTargetSnapPosition()计算到TargetSnapView，再根据calculateDistanceToFinalSnap()计算到TargetSnapView与对齐位置的剩余距离。普通滑动就是等到滑动停止，findSnapView()找到需要对齐的View即SanpView，再calculateDistanceToFinalSnap()计算得到额外的滑动距离。</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySnap</span> <span class="keyword">extends</span> <span class="title">SnapHelper</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MySnap"</span>;</div><div class="line"></div><div class="line">    <span class="meta">@Nullable</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] calculateDistanceToFinalSnap(<span class="meta">@NonNull</span> RecyclerView.LayoutManager layoutManager, <span class="meta">@NonNull</span> View targetView) &#123;</div><div class="line">        <span class="keyword">if</span> (layoutManager <span class="keyword">instanceof</span> CustomLayoutManager) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">0</span>, ((CustomLayoutManager) layoutManager).calculateDistance(targetView)&#125;;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Nullable</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> View <span class="title">findSnapView</span><span class="params">(RecyclerView.LayoutManager layoutManager)</span> </span>&#123;</div><div class="line">        CustomLayoutManager flipLayoutManager = (CustomLayoutManager) layoutManager;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> flipLayoutManager.findSnapView();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findTargetSnapPosition</span><span class="params">(RecyclerView.LayoutManager layoutManager, <span class="keyword">int</span> velocityX, <span class="keyword">int</span> velocityY)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (layoutManager <span class="keyword">instanceof</span> CustomLayoutManager) &#123;</div><div class="line">            <span class="keyword">return</span> ((CustomLayoutManager) layoutManager).findTargetPosition(velocityY);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="翻页View"><a href="#翻页View" class="headerlink" title="翻页View"></a>翻页View</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlipCard</span> <span class="keyword">extends</span> <span class="title">FrameLayout</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"FlipCard"</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Paint mScrimPaint;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Camera mCamera;</div><div class="line">    <span class="keyword">private</span> Matrix mMatrix;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> mIsForground;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> mPercent;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FlipCard</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, <span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FlipCard</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, attrs, <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FlipCard</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</div><div class="line"></div><div class="line">        mScrimPaint = <span class="keyword">new</span> Paint();</div><div class="line">        mCamera = <span class="keyword">new</span> Camera();</div><div class="line">        mMatrix = <span class="keyword">new</span> Matrix();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(<span class="keyword">boolean</span> isForground, <span class="keyword">float</span> percent)</span> </span>&#123;</div><div class="line">        mIsForground = isForground;</div><div class="line">        mPercent = percent;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(Canvas canvas)</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (mPercent == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">super</span>.draw(canvas);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> height = canvas.getHeight();</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> width = canvas.getWidth();</div><div class="line">        <span class="keyword">final</span> <span class="keyword">float</span> percent = mPercent &gt; <span class="number">0</span> ? mPercent : -mPercent;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (mIsForground) &#123;</div><div class="line">            <span class="comment">// clip card effect for forground view</span></div><div class="line">            <span class="comment">// draw part1</span></div><div class="line">            <span class="keyword">int</span> save1 = canvas.save();</div><div class="line">            <span class="keyword">if</span> (mPercent &gt; <span class="number">0</span>) &#123;</div><div class="line">                canvas.clipRect(<span class="number">0</span>, <span class="number">0</span>, width, height / <span class="number">2</span>);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                canvas.clipRect(<span class="number">0</span>, height / <span class="number">2</span>, width, height);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">super</span>.draw(canvas);</div><div class="line">            canvas.restoreToCount(save1);</div><div class="line"></div><div class="line">            <span class="comment">// draw part2</span></div><div class="line">            <span class="keyword">if</span> (mPercent &lt; <span class="number">0</span>) &#123;</div><div class="line">                canvas.clipRect(<span class="number">0</span>, <span class="number">0</span>, width, height / <span class="number">2</span>);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                canvas.clipRect(<span class="number">0</span>, height / <span class="number">2</span>, width, height);</div><div class="line">            &#125;</div><div class="line">            mCamera.save();</div><div class="line">            mCamera.setLocation(<span class="number">0f</span>, <span class="number">0f</span>, -<span class="number">80</span>);</div><div class="line">            mCamera.rotateX(mPercent * <span class="number">180</span>);</div><div class="line">            mCamera.getMatrix(mMatrix);</div><div class="line">            mCamera.restore();</div><div class="line">            mMatrix.preTranslate(-width / <span class="number">2</span>, -height / <span class="number">2</span>);</div><div class="line">            mMatrix.postTranslate(width / <span class="number">2</span>, height / <span class="number">2</span>);</div><div class="line">            canvas.concat(mMatrix);</div><div class="line">            <span class="keyword">super</span>.draw(canvas);</div><div class="line"></div><div class="line">            mScrimPaint.setColor(<span class="number">0x08000000</span>);</div><div class="line">            canvas.drawRect(<span class="number">0</span>, <span class="number">0</span>, width, height, mScrimPaint);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">// 作为背景，不需要有flip效果，只需要切出一半view展示出来即可</span></div><div class="line">            <span class="comment">// draw shadow for underground view</span></div><div class="line">            <span class="keyword">final</span> <span class="keyword">int</span> scrimColor = (<span class="keyword">int</span>) (<span class="number">0xff</span> * (<span class="number">1</span> - percent * <span class="number">2</span>)) &lt;&lt; <span class="number">24</span>;</div><div class="line">            mScrimPaint.setColor(scrimColor);</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (mPercent &lt; <span class="number">0</span>) &#123;</div><div class="line">                canvas.clipRect(<span class="number">0</span>, <span class="number">0</span>, width, height / <span class="number">2</span>);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                canvas.clipRect(<span class="number">0</span>, height / <span class="number">2</span>, width, height);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">super</span>.draw(canvas);</div><div class="line">            canvas.drawRect(<span class="number">0</span>, <span class="number">0</span>, width, height, mScrimPaint);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">customLayoutManager = <span class="keyword">new</span> CustomLayoutManager(<span class="keyword">this</span>);</div><div class="line">recyclerView.setLayoutManager(customLayoutManager);</div><div class="line">adapter = <span class="keyword">new</span> CustomAdapter(myData,MainActivity.<span class="keyword">this</span>);</div><div class="line">recyclerView.setAdapter(adapter);</div><div class="line"></div><div class="line">MySnap snap = <span class="keyword">new</span> MySnap();</div><div class="line">snap.attachToRecyclerView(recyclerView);</div></pre></td></tr></table></figure>
+<h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><p>翻页效果带来了本身其滑动范围有限，依次只能上下翻页，因为对于缓存，首先稍微设置mCacheViews大一些，默认为2，由于每次翻页会绑定下一页，因此我设置为3来保证由本页（例：1）翻到下一页（例：2）时，不会因为加载再下一页（例：3）而导致原来的上一页（例：0）被回收。</p>
+<p>另一项策略时预加载Prefetch，对于自定义LayoutManager，需要重写<a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.LayoutManager.html#collectAdjacentPrefetchPositions%28int,%20int,%20android.support.v7.widget.RecyclerView.State,%20android.support.v7.widget.RecyclerView.LayoutManager.LayoutPrefetchRegistry%29" target="_blank" rel="external">LayoutManager.collectAdjacentPrefetchPositions()</a>方法，可以参考LinearLayoutManager实现。</p>
+<p>包含完整源码的项目：<a href="https://github.com/starsight/Gank" target="_blank" rel="external">https://github.com/starsight/Gank</a></p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://www.jianshu.com/p/e54db232df62" target="_blank" rel="external">让你明明白白的使用RecyclerView——SnapHelper详解</a></p>
+<p><a href="https://medium.com/google-developers/recyclerview-prefetch-c2f269075710" target="_blank" rel="external">https://medium.com/google-developers/recyclerview-prefetch-c2f269075710</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzA3NTYzODYzMg==&amp;mid=2653578065&amp;idx=2&amp;sn=25e64a8bb7b5934cf0ce2e49549a80d6&amp;chksm=84b3b156b3c43840061c28869671da915a25cf3be54891f040a3532e1bb17f9d32e244b79e3f&amp;mpshare=1&amp;scene=1&amp;srcid=0626Dl0bjG3664qJlKb7RSlq#rd" target="_blank" rel="external">Android ListView 与 RecyclerView 对比浅析–缓存机制</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"># android</a>
+          
+            <a href="/tags/recycleView/" rel="tag"># recycleView</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/27/Xiaoai/" rel="next" title="小爱技能开发大赛-抽签技能开发分享">
+                <i class="fa fa-chevron-left"></i> 小爱技能开发大赛-抽签技能开发分享
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ0Ny82MDE1"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/headphoto.jpg"
+               alt="贺文杰" />
+          <p class="site-author-name" itemprop="name">贺文杰</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/starsight" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1585017253" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/starsight" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性定义"><span class="nav-number">1.</span> <span class="nav-text">属性定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局流程"><span class="nav-number">2.</span> <span class="nav-text">布局流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#滑动"><span class="nav-number">3.</span> <span class="nav-text">滑动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#翻页View"><span class="nav-number">4.</span> <span class="nav-text">翻页View</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">5.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存"><span class="nav-number">6.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">7.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">贺文杰</span>
+</div>
+
+
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div style="margin:-20px;position: absolute;right:265px;">
+<dl style="float:left">
+  <dt style="float:left">
+    <dd style="float:left;width:300px">
+      <span style="float:right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+      <span style="float:right">本站总访问量<span><span style="float:right" id="busuanzi_value_site_pv"></span>
+    </dd>
+  </dt>
+  <dt style="float:left;width:300px">
+    <dd>
+      <span style="float:left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span style="float:left">您是第</span>
+      <span style="float:left" id="busuanzi_value_site_uv"></span>
+      <span style="float:left">个小伙伴</span>
+    </dd>
+  </dt>
+</dl>
+</div>
+
+<span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+<span id="showDays"></span>
+
+<script>
+	var birthDay = new Date('04/01/2015');
+	var now = new Date();
+	var duration = now.getTime() - birthDay.getTime();
+	var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+	document.getElementById('showDays').innerHTML='本站已运行' + total + '天';
+</script>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+   
+     
+   
+  
+       <!-- UY BEGIN -->
+       <script type="text/javascript">
+          (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+          })(document, 'script');
+       </script>
+       <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+       <!-- UY END -->
+   
+ 
+
+
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=MTAyMC8yOTQ0Ny82MDE1"></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
